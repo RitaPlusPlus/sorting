@@ -66,7 +66,7 @@ void SortingAlgorithms::on_btnGenerate_clicked()
 //push button Clear All
 void SortingAlgorithms::on_btnClear_clicked()
 {
-   // ui->lbGenerate->setText("");
+    ui->lbGenerate->setText("");
     ui->leSize->setText("");
     ui->lbSortedSeq->setText("");
 }//on_btnClear_clicked
