@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SortingAlgorithms</class>
+ <widget class="QMainWindow" name="SortingAlgorithms">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>252</width>
+    <height>667</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SortingAlgorithms</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:0 rgba(91, 204, 233, 100), stop:1 rgba(32, 80, 96,100)); 
+}
+
+QLineEdit{
+background: white;
+color: black;
+}
+
+QLabel#lbGenerate{
+padding: 0 8px;
+color: black;
+background: rgba(234, 248, 253,100);
+}
+
+QLabel#lbSortedSeq
+{
+padding: 0 8px;
+color: black;
+background: rgba(234, 248, 253,100);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>12</y>
+      <width>227</width>
+      <height>609</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="14" column="0">
+      <widget class="QLabel" name="lbGenerate">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Sorting algorithm</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="lb_choose_rand_seq">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Choose a way of storing elements:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout1">
+       <item>
+        <widget class="QRadioButton" name="rbSequence">
+         <property name="text">
+          <string>Sequential</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Rand_or_Seq_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="rbRandom">
+         <property name="text">
+          <string>Random</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Rand_or_Seq_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="12" column="0">
+      <widget class="QPushButton" name="btnGenerate">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Generate</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Generated sequence of elements:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLineEdit" name="leSize"/>
+     </item>
+     <item row="20" column="0">
+      <widget class="QLabel" name="lbSortedSeq">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QComboBox" name="cbType"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="lb_type">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="22" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout2">
+       <item>
+        <widget class="QPushButton" name="btnClear">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>Clear All</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="19" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Sorted sequence of elements:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="0">
+      <widget class="QPushButton" name="btnSort">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Sort</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="lb_numberelem">
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Number of elements:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="0">
+      <layout class="QVBoxLayout" name="verticalLayout1">
+       <item>
+        <widget class="QRadioButton" name="radioButton_5">
+         <property name="text">
+          <string>Insertion Sort</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Sorting_algos_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton">
+         <property name="text">
+          <string>Selection Sort</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Sorting_algos_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_4">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>Bubble Sort</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Sorting_algos_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_3">
+         <property name="text">
+          <string>Quick Sort</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Sorting_algos_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButton_2">
+         <property name="text">
+          <string>Merge Sort </string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">Sorting_algos_RbGroup</string>
+         </attribute>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="4" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Min:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox"/>
+       </item>
+      </layout>
+     </item>
+     <item row="5" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Max:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox_2"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="Sorting_algos_RbGroup"/>
+  <buttongroup name="Rand_or_Seq_RbGroup"/>
+ </buttongroups>
+</ui>
