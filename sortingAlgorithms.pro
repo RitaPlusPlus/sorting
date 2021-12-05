@@ -13,6 +13,7 @@ SOURCES += \
     sortingalgorithms.cpp
 
 HEADERS += \
+    array-vector.h \
     sortingalgorithms.h
 
 FORMS += \
