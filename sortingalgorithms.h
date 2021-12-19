@@ -16,16 +16,31 @@ public:
     ~SortingAlgorithms(); //destructor
 
 private slots:
-    void on_btnGenerate_clicked(); //push button Generate
-    void on_btnClear_clicked();  //push button Clear All
+
+    void on_btnGenerate_randSeq_clicked(); //push button to Generate a random sequence
+    void on_btnClear_clicked();  //push button Clear
     void on_btnSort_clicked();  //push button Sort
+
+    void on_rbMinput_clicked(); //push button Minput - manual input
+    void on_rbRandom_clicked(); //push button Random
+
+
+    void on_rbStr_clicked();
+    void on_rbInt_clicked();
+    void on_rbDouble_clicked();
+
 
 private:
     Ui::SortingAlgorithms *ui;
 
-    const int SIZE = 10;
-    const int rand_min = 0;
-    const int rand_max = 40;
-    int random_number;
+    int min;
+    int max;
+    int size;
+
+     QString sequence;
+     int integers_sequence;
+     double doubles_sequence;
+    //const char alphanum[63] = {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; //numbers,capital and small letters
+
 };
 #endif // SORTINGALGORITHMS_H

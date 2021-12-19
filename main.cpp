@@ -7,7 +7,7 @@
 #include <QDateTime>
 #include <QTextStream>
 #include <iostream>
-//<QIODevice>
+
 
 int main(int argc, char *argv[])
 {
