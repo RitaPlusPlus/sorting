@@ -188,11 +188,11 @@ T& ArrayVector<T>::at(int i) const {
 template <typename T>
 void ArrayVector<T>::sort(SORTING_ALGO algo) {
     switch(algo) {
-        case SELECTION_SORT: selectionSort();
-        case INSERTION_SORT: insertionSort();
-        case BUBBLE_SORT: bubbleSort();
-        case MERGE_SORT: mergeSort();
-        case QUICK_SORT: quickSort();
+        case SELECTION_SORT: selectionSort(); break;
+        case INSERTION_SORT: insertionSort(); break;
+        case BUBBLE_SORT: bubbleSort(); break;
+        case MERGE_SORT: mergeSort(); break;
+        case QUICK_SORT: quickSort(); break;
     }
 }
 

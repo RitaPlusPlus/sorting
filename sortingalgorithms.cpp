@@ -208,7 +208,7 @@ typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
         return ArrayVector<T>::QUICK_SORT;
     } else if(ui->rbMegeS->isChecked()) {
         return ArrayVector<T>::MERGE_SORT;
-    } else  {
+    } else {
         QMessageBox::warning(this,tr("Missing"),tr("You don't have sorting algo selected"), QMessageBox::Cancel);
         return ArrayVector<T>::NONE;
     }
