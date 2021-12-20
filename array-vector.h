@@ -1,11 +1,18 @@
 #ifndef ARRAY_VECTOR_H
 #define ARRAY_VECTOR_H
 
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include "QString"
+
+using namespace std;
+
 template <typename T>
 class ArrayVector {
     public:
         enum SORTING_ALGO {
-            SELECTION_SORT, INSERTION_SORT, BUBBLE_SORT, MERGE_SORT, QUICK_SORT
+            SELECTION_SORT, INSERTION_SORT, BUBBLE_SORT, MERGE_SORT, QUICK_SORT, NONE
         };
     public:
         ArrayVector();
@@ -22,12 +29,18 @@ class ArrayVector {
         void reserve(int N); // reserve N elements
         T& operator [](int i); // not working yet !!!
         void sort(SORTING_ALGO algo);
+        void clear();
+
         // Sorting algorithms:
         void selectionSort();
         void insertionSort();
         void bubbleSort();
         void mergeSort();
         void quickSort();
+        int partition(int low, int high);
+        void quickSort(int low, int high);
+
+        QString toString() const;
     private:
         int n; // number of elements
         int capacity; // capacity of the vector
@@ -64,6 +77,24 @@ ArrayVector<T>::~ArrayVector() {
         delete[] a;
         a = nullptr;
     }
+}
+
+template <typename T>
+void ArrayVector<T>::clear() {
+    free();
+    n = 0;
+    capacity = 0;
+    a = new T[NULL];
+}
+
+template <typename T>
+QString ArrayVector<T>::toString() const {
+    QString res = "";
+    for(int i = 0; i < n; i++) {
+        res.append(QString::number(a[i]));
+        res.append(" ");
+    }
+    return res;
 }
 
 template <typename T>
@@ -175,6 +206,26 @@ void ArrayVector<T>::insertionSort() {
 
 template <typename T>
 void ArrayVector<T>::bubbleSort() {
+    int i, j;
+    bool swapped;
+    for (i = 0; i < n-1; i++)
+    {
+     swapped = false;
+     for (j = 0; j < n-i-1; j++)
+     {
+        if (a[j] > a[j+1])
+        {
+            T temp = a[j];
+            a[j] = a[j+1];
+            a[j+1] = temp;
+           swapped = true;
+        }
+     }
+
+     // IF no two elements were swapped by inner loop, then break
+     if (swapped == false)
+        break;
+    }
 }
 
 template <typename T>
@@ -183,6 +234,44 @@ void ArrayVector<T>::mergeSort() {
 
 template <typename T>
 void ArrayVector<T>::quickSort() {
+    quickSort(0, n - 1);
+}
+
+template <typename T>
+int ArrayVector<T>::partition(int low, int high) {
+    int pivot = a[high]; // pivot
+    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        // If current element is smaller than the pivot
+        if (a[j] < pivot)
+        {
+            i++; // increment index of smaller element
+            T temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+    }
+    T temp = a[i + 1];
+    a[i + 1] = a[high];
+    a[high] = temp;
+    return (i + 1);
+}
+
+template <typename T>
+void ArrayVector<T>::quickSort(int low, int high) {
+    if (low < high)
+    {
+        /* pi is partitioning index, arr[p] is now
+        at right place */
+        int pi = partition(low, high);
+
+        // Separately sort elements before
+        // partition and after partition
+        quickSort(low, pi - 1);
+        quickSort(pi + 1, high);
+    }
 }
 
 #endif

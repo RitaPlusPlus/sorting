@@ -25,11 +25,8 @@ SortingAlgorithms::SortingAlgorithms(QWidget *parent)
     min = 0;
     max = 0;
     size = 0;
-    sequence;
     integers_sequence = 0;
     doubles_sequence = 0;
-    //ui->groupBox_way1_random->setEnabled(true);
-    //ui->groupBox_way2_minput->setEnabled(true);
 }//SortingAlgorithms
 
 //destructor
@@ -114,10 +111,12 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
         if(ui->rbInt->isChecked())
         {
             sequence = "";
-
+            int_vector.clear();
             for (int i = 0; i < size; i++)
             {
-                sequence += QString::number(min + rand() % (max - min + 1)) + " ";
+                int num = min + rand() % (max - min + 1);
+                int_vector.insert_back(num);
+                sequence += QString::number(num) + " ";
             }
             ui->textBrowser_randSeq->setText(sequence);
         }
@@ -125,9 +124,12 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
         else if(ui->rbDouble->isChecked())
         {
             sequence = "";
+            double_vector.clear();
             for (int i = 0; i < size; i++)
             {
-                sequence += QString::number((min + rand() / (float)RAND_MAX * (max - min + 1))) + " ";
+                double num = min + rand() / (float)RAND_MAX * (max - min + 1);
+                double_vector.insert_back(num);
+                sequence += QString::number(num) + " ";
             }
             ui->textBrowser_randSeq->setText(sequence);
         }
@@ -141,7 +143,9 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
 
                 for (int i = 0; i < size; ++i)
                 {
-                    sequence = sequence + alphanum[rand() % (sizeof(alphanum) - 1)] + " ";
+                    char ch = alphanum[rand() % (sizeof(alphanum) - 1)];
+//                    string_vector.insert_back(ch);
+                    sequence = sequence + ch + " ";
                 }
                 ui->textBrowser_randSeq->setText(sequence);
         }
@@ -192,27 +196,42 @@ void SortingAlgorithms::on_btnClear_clicked()
 
 }//on_btnClear_clicked
 
+template <typename T>
+typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
+    if(ui->rbSelectionS->isChecked()){
+        return ArrayVector<T>::SELECTION_SORT;
+    } else if(ui->rbInsertionS->isChecked()) {
+        return ArrayVector<T>::INSERTION_SORT;
+    } else if(ui->rbBubbleS->isChecked()) {
+        return ArrayVector<T>::BUBBLE_SORT;
+    } else if(ui->rbQuickS->isChecked()) {
+        return ArrayVector<T>::QUICK_SORT;
+    } else if(ui->rbMegeS->isChecked()) {
+        return ArrayVector<T>::MERGE_SORT;
+    } else  {
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have sorting algo selected"), QMessageBox::Cancel);
+        return ArrayVector<T>::NONE;
+    }
+}
 //push button Sort
 void SortingAlgorithms::on_btnSort_clicked()
 {
-        //if the user chooses to enter by himself the sequence, we get the results from textEdit of Manual Input
-        if(ui->rbMinput->isChecked())
-        {
-            sequence = ui->textE_Minput->toPlainText();
-        }
-        else if(ui->rbRandom->isChecked()) //else if the user chooses Random way, we get the results from textBrowser
-        {
-            sequence = ui->textBrowser_randSeq->toPlainText();
-        }
-
-        if(ui->rbInt->isChecked())
-        {
-           integers_sequence = sequence.toInt(); //get and transform to sequence toint
-        }
-        else if(ui->rbDouble->isChecked())
-        {
-            doubles_sequence = sequence.toDouble(); //get and transform the sequence to double
-        }
+    if(ui->rbInt->isChecked())
+    {
+        int_vector.sort(getSortAlgo<int>());
+        sequence = int_vector.toString();
+    }
+    //else if type is DOUBLE
+    else if(ui->rbDouble->isChecked())
+    {
+        double_vector.sort(getSortAlgo<double>());
+        sequence = double_vector.toString();
+    }
+    //else if type is STRING
+    else if(ui->rbStr->isChecked())
+    {
+//        string_vector.sort(getSortAlgo<string>());
+    }
         ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
 }//on_btnSort_clicked
 

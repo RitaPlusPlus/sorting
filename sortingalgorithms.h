@@ -2,6 +2,7 @@
 #define SORTINGALGORITHMS_H
 
 #include <QMainWindow>
+#include "array-vector.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SortingAlgorithms; }
@@ -31,12 +32,16 @@ private slots:
 
 
 private:
+    template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();
     Ui::SortingAlgorithms *ui;
 
     int min;
     int max;
     int size;
 
+    ArrayVector<int> int_vector;
+    ArrayVector<double> double_vector;
+//    ArrayVector<string> string_vector;
      QString sequence;
      int integers_sequence;
      double doubles_sequence;
