@@ -9,10 +9,12 @@
 #include <QGroupBox>
 #include <QDebug>
 #include <QString>
+#include <QFileDialog>
 #include <iostream>
 #include <cstdlib> //RAND_MAX
 #include <string>
 #include <iomanip>
+
 
 
 //constructor
@@ -244,6 +246,7 @@ void SortingAlgorithms::on_btnSort_clicked()
     //else if type is DOUBLE
     else if(ui->rbDouble->isChecked())
     {
+        //double_vector = sequence.toDouble();
         double_vector.sort(getSortAlgo<double>());
         sequence = double_vector.toString();
     }
@@ -255,6 +258,24 @@ void SortingAlgorithms::on_btnSort_clicked()
         ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
 }//on_btnSort_clicked
 
+
+
+void SortingAlgorithms::on_pushButton_2_clicked()
+{
+    QString file_name = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath());
+    QMessageBox::information(this, "..", file_name);
+    QFile file(file_name);
+
+    if (!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this, "title", "file not open");
+    }
+    QTextStream in(&file);
+    QString text = in.readAll();
+    ui->textEdit_File_Name->setPlainText(text);
+
+    file.close();
+}
 
 
 

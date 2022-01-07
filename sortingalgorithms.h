@@ -25,11 +25,11 @@ private slots:
     void on_rbMinput_clicked(); //radio button Minput - manual input
     void on_rbRandom_clicked(); //radio button Random
 
-
     void on_rbStr_clicked(); //radio button String
     void on_rbInt_clicked(); //radio button Integer
     void on_rbDouble_clicked(); //radio button Double
 
+    void on_pushButton_2_clicked();//read file button
 
 private:
     template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();

@@ -59,6 +59,29 @@ rgba(234, 248, 253,100);
      <layout class="QGridLayout" name="gridLayout_the_whole_design">
       <item row="0" column="1">
        <layout class="QGridLayout" name="gridLayout_rightpart">
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Sorted sequence of elements:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QTextBrowser" name="textBrowser_sortedSeq"/>
+        </item>
+        <item row="5" column="0">
+         <spacer name="verticalSpacer_between_Sort_ClearAll">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item row="1" column="0">
          <widget class="QGroupBox" name="groupBox_sortingalgos">
           <property name="minimumSize">
@@ -69,7 +92,6 @@ rgba(234, 248, 253,100);
           </property>
           <property name="font">
            <font>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -144,23 +166,11 @@ rgba(234, 248, 253,100);
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QTextBrowser" name="textBrowser_sortedSeq"/>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Sorted sequence of elements:</string>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="0">
          <widget class="QPushButton" name="btnClear">
           <property name="font">
            <font>
-            <family>Arial</family>
             <pointsize>14</pointsize>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -176,7 +186,6 @@ rgba(234, 248, 253,100);
          <widget class="QPushButton" name="btnSort">
           <property name="font">
            <font>
-            <family>Arial</family>
             <pointsize>14</pointsize>
            </font>
           </property>
@@ -185,25 +194,10 @@ rgba(234, 248, 253,100);
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <spacer name="verticalSpacer_between_Sort_ClearAll">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox">
           <property name="font">
            <font>
-            <family>Arial</family>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -211,42 +205,22 @@ rgba(234, 248, 253,100);
            <string>Read/Write File:</string>
           </property>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_5">
+           <item row="3" column="0">
+            <widget class="QPushButton" name="pushButton">
              <property name="text">
-              <string>Text file name (add .txt):</string>
+              <string>Write to text file</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="pushButton_2">
+             <property name="text">
+              <string>Read a text file</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
             <widget class="QTextEdit" name="textEdit_File_Name"/>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>Read the file content</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QTextBrowser" name="textBrowser_File_Read"/>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Write:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QTextEdit" name="textEdit_File_Write"/>
-           </item>
-           <item row="6" column="0">
-            <widget class="QPushButton" name="pushButton">
-             <property name="text">
-              <string>Import inside the file</string>
-             </property>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -260,7 +234,6 @@ rgba(234, 248, 253,100);
           <property name="font">
            <font>
             <pointsize>12</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -301,7 +274,6 @@ rgba(234, 248, 253,100);
           <property name="font">
            <font>
             <pointsize>12</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -375,7 +347,6 @@ rgba(234, 248, 253,100);
             <widget class="QPushButton" name="btnGenerate_randSeq">
              <property name="font">
               <font>
-               <family>Arial</family>
                <pointsize>14</pointsize>
               </font>
              </property>
@@ -404,9 +375,7 @@ rgba(234, 248, 253,100);
          <widget class="QLabel" name="label_0">
           <property name="font">
            <font>
-            <family>Arial Black</family>
             <pointsize>14</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -419,7 +388,6 @@ rgba(234, 248, 253,100);
          <widget class="QGroupBox" name="groupBox_types">
           <property name="font">
            <font>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -487,8 +455,8 @@ rgba(234, 248, 253,100);
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="Types_int_double_str_RbGroup"/>
-  <buttongroup name="Rand_or_Input_RbGroup"/>
   <buttongroup name="Sorting_algos_RbGroup"/>
+  <buttongroup name="Rand_or_Input_RbGroup"/>
+  <buttongroup name="Types_int_double_str_RbGroup"/>
  </buttongroups>
 </ui>
