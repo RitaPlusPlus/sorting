@@ -4,20 +4,22 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <cstdlib> //malloc()
 #include "QString"
 
 using namespace std;
 
 template <typename T>
-class ArrayVector {
+class ArrayVector
+{
     public:
-        enum SORTING_ALGO {
+        enum SORTING_ALGO{
             SELECTION_SORT, INSERTION_SORT, BUBBLE_SORT, MERGE_SORT, QUICK_SORT, NONE
         };
     public:
-        ArrayVector();
+        ArrayVector(); //default constructor
         ArrayVector(ArrayVector<T>& b);
-        ~ArrayVector();
+        ~ArrayVector(); //destructor
         int size() const;
         bool isEmpty() const;
         T& at(int i) const; // access element at index i
@@ -36,6 +38,8 @@ class ArrayVector {
         void insertionSort();
         void bubbleSort();
         void mergeSort();
+        void merge(int low, int mid, int high);
+        void mergeSort(int low, int high);
         void quickSort();
         int partition(int low, int high);
         void quickSort(int low, int high);
@@ -50,144 +54,180 @@ class ArrayVector {
 };
 
 template <typename T>
-ArrayVector<T>::ArrayVector() {
+ArrayVector<T>::ArrayVector()
+{
     n = 0;
     capacity = 0;
     a = new T[NULL];
-}
+}//ArrayVector
 
 template <typename T>
-ArrayVector<T>::ArrayVector(ArrayVector<T>& b) {
+ArrayVector<T>::ArrayVector(ArrayVector<T>& b)
+{
     copy(b);
-}
+}//ArrayVector
 
 template <typename T>
-void ArrayVector<T>::copy(const ArrayVector<T>& b) {
+void ArrayVector<T>::copy(const ArrayVector<T>& b)
+{
     n = b.n;
     capacity = b.capacity;
     a = new T[capacity];
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++)
+    {
         a[i] = b[i];
     }
-}
+}//copy
 
 template <typename T>
-ArrayVector<T>::~ArrayVector() {
-    if(a) {
+ArrayVector<T>::~ArrayVector()
+{
+    if(a)
+    {
         delete[] a;
         a = nullptr;
     }
-}
+}//ArrayVector
 
 template <typename T>
-void ArrayVector<T>::clear() {
+void ArrayVector<T>::clear()
+{
     free();
     n = 0;
     capacity = 0;
     a = new T[NULL];
-}
+}//clear
 
 template <typename T>
-QString ArrayVector<T>::toString() const {
+QString ArrayVector<T>::toString() const
+{
     QString res = "";
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i < n; i++)
+    {
         res.append(QString::number(a[i]));
         res.append(" ");
     }
     return res;
-}
+}//toString
 
 template <typename T>
-void ArrayVector<T>::free() {
-    if(a) {
+void ArrayVector<T>::free()
+{
+    if(a)
+    {
         delete[] a;
         a = nullptr;
     }
-}
+}//free
 
 template <typename T>
-int ArrayVector<T>::size() const {
+int ArrayVector<T>::size() const
+{
     return n;
-}
+}//size
 
 template <typename T>
-bool ArrayVector<T>::isEmpty() const {
+bool ArrayVector<T>::isEmpty() const
+{
     return size() == 0;
-}
+}//isEmpty
 
 template <typename T>
-void ArrayVector<T>::insert_back(T e) {
+void ArrayVector<T>::insert_back(T e)
+{
     insert(n, e);
-}
+}//insert_back
 
 template <typename T>
-void ArrayVector<T>::insert(int i, T e) {
-    if(n >= capacity) {
+void ArrayVector<T>::insert(int i, T e)
+{
+    if(n >= capacity)
+    {
         reserve(max(1, 2*capacity));
     }
-    for(int j = i; j < n; j++) {
+    for(int j = i; j < n; j++)
+    {
         a[j + 1] = a[j];
     }
     a[i] = e;
     n++;
-}
+}//insert
 
 template <typename T>
-void ArrayVector<T>::erase_back() {
+void ArrayVector<T>::erase_back()
+{
     erase(n-1);
-}
+}//erase_back
 
 template <typename T>
-void ArrayVector<T>::erase(int i) {
-    if(i >= 0 && i < n) {
-        for(int j = i + 1; j < n; j++) {
+void ArrayVector<T>::erase(int i)
+{
+    if(i >= 0 && i < n)
+    {
+        for(int j = i + 1; j < n; j++)
+        {
             a[j - 1] = a[j];
         }
         n--;
-    } else {
+    }
+    else
+    {
         throw out_of_range("illegal index in function erase()");
     }
-}
+}//erase
 
 template <typename T>
-void ArrayVector<T>::set(int i, T e) {
-    if(i >= 0 && i < n) {
+void ArrayVector<T>::set(int i, T e)
+{
+    if(i >= 0 && i < n)
+    {
         a[i] = e;
-    } else {
+    }
+    else
+    {
         throw out_of_range("illegal index in function set()");
     }
-}
+}//set
 
 template <typename T>
-void ArrayVector<T>::reserve(int N) {
+void ArrayVector<T>::reserve(int N)
+{
     if(capacity >= N) return;
 
     capacity = N;
     T* b = new T[N];
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i < n; i++)
+    {
         b[i] = a[i];
     }
     free();
     a = b;
-}
+}//reserve
 
 template <typename T>
-T& ArrayVector<T>::operator[](int i) {
+T& ArrayVector<T>::operator[](int i)
+{
     return a[i];
-} // not working yet !!!
+}//operator[] // not working yet !!!
 
 template <typename T>
-T& ArrayVector<T>::at(int i) const {
-    if(i >= 0 && i < n) {
+T& ArrayVector<T>::at(int i) const
+{
+    if(i >= 0 && i < n)
+    {
         return a[i];
-    } else {
+    }
+    else
+    {
         throw out_of_range("illegal index in function at()");
     }
-}
+}//at
 
 template <typename T>
-void ArrayVector<T>::sort(SORTING_ALGO algo) {
-    switch(algo) {
+void ArrayVector<T>::sort(SORTING_ALGO algo)
+{
+    switch(algo)
+    {
         case SELECTION_SORT: selectionSort(); break;
         case INSERTION_SORT: insertionSort(); break;
         case BUBBLE_SORT: bubbleSort(); break;
@@ -197,15 +237,39 @@ void ArrayVector<T>::sort(SORTING_ALGO algo) {
 }
 
 template <typename T>
-void ArrayVector<T>::selectionSort() {
-}
+void ArrayVector<T>::selectionSort()
+{
+    int i, j, loc;
+    for(i = 0; i < n-1; i++)
+    {
+        T min = a[i];
+        loc = i;
+        for(j = i + 1; j < n; j++)
+        {
+            if(min > a[j])
+            {
+                min = a[j];
+                loc = j;
+            }
+        }
+
+        if (loc != i)
+        {
+            T temp = a[i];
+            a[i] = a[loc];
+            a[loc] = temp;
+        }
+    }
+}//selectionSort
 
 template <typename T>
-void ArrayVector<T>::insertionSort() {
-}
+void ArrayVector<T>::insertionSort()
+{
+}//insertionSort
 
 template <typename T>
-void ArrayVector<T>::bubbleSort() {
+void ArrayVector<T>::bubbleSort()
+{
     int i, j;
     bool swapped;
     for (i = 0; i < n-1; i++)
@@ -226,19 +290,86 @@ void ArrayVector<T>::bubbleSort() {
      if (swapped == false)
         break;
     }
-}
+}//bubbleSort
 
 template <typename T>
-void ArrayVector<T>::mergeSort() {
-}
+void ArrayVector<T>::mergeSort()
+{
+    mergeSort(0, n - 1);
+}//mergeSort
 
 template <typename T>
-void ArrayVector<T>::quickSort() {
+void ArrayVector<T>::merge(int low, int mid, int high) //low = from and high = to
+{
+     //int n = high - low + 1; //size of the range to be merged
+
+    //merge both halves into a temporary  b /
+     T* b = (T*) malloc((high - low + 1)*sizeof(T)); //allocate a block of uninitialized memory of T size to a T pointer b
+
+     int i1 = low; //index for first sequence
+     int i2 = mid + 1; //index for second sequence/ next element to consider in the second half
+     int j = 0; // next open position in b, or in other words, index for merged sequence
+
+    //as long as neither i1 nor i2 past the end, move the smaller element into b
+     while (i1 <= mid && i2 <= high)
+     {
+         if (a[i1] < a[i2]) //the element from the first sequence is the minimal
+         {
+             b[j] = a[i1];
+             i1++;
+         }
+         else
+         {
+             b[j] = a[i2];
+             i2++;
+         }
+         j++;
+     }
+    //note that only one of the two while loops below is executed
+
+    //copy any remaining entries of the first half
+     while (i1 <= mid)
+     {
+         b[j] = a[i1];
+         i1++;
+         j++;
+     }
+
+    //copy any remaining entries of the second half
+     while (i2 <= high)
+     {
+         b[j] = a[i2];
+         i2++;
+         j++;
+     }
+
+    //copy back from the temporary b
+     for (j = 0; j < n; j++)
+     {
+         a[low + j] = b[j];
+     }
+}//mergeSort
+
+template <typename T>
+void ArrayVector<T>::mergeSort(int low, int high)
+{
+    if (low == high) return;
+    int mid = (low + high) / 2;
+   //sort the first and the second half
+    mergeSort(low, mid); // recursive call
+    mergeSort(mid + 1, high); // recursive call
+    merge(low, mid, high); //merge two sorted sequences
+}//mergeSort
+
+template <typename T>
+void ArrayVector<T>::quickSort()
+{
     quickSort(0, n - 1);
-}
+}//quickSort
 
 template <typename T>
-int ArrayVector<T>::partition(int low, int high) {
+int ArrayVector<T>::partition(int low, int high)
+{
     int pivot = a[high]; // pivot
     int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
 
@@ -257,10 +388,11 @@ int ArrayVector<T>::partition(int low, int high) {
     a[i + 1] = a[high];
     a[high] = temp;
     return (i + 1);
-}
+}//quickSort
 
 template <typename T>
-void ArrayVector<T>::quickSort(int low, int high) {
+void ArrayVector<T>::quickSort(int low, int high)
+{
     if (low < high)
     {
         /* pi is partitioning index, arr[p] is now
@@ -272,6 +404,6 @@ void ArrayVector<T>::quickSort(int low, int high) {
         quickSort(low, pi - 1);
         quickSort(pi + 1, high);
     }
-}
+}//quickSort
 
 #endif

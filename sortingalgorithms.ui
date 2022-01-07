@@ -487,8 +487,8 @@ rgba(234, 248, 253,100);
   </connection>
  </connections>
  <buttongroups>
+  <buttongroup name="Types_int_double_str_RbGroup"/>
   <buttongroup name="Rand_or_Input_RbGroup"/>
   <buttongroup name="Sorting_algos_RbGroup"/>
-  <buttongroup name="Types_int_double_str_RbGroup"/>
  </buttongroups>
 </ui>

@@ -42,26 +42,34 @@ void SortingAlgorithms::on_rbStr_clicked()
     //a message that informs the user to know that string type only supports the value of Size
     QMessageBox::warning(this,tr("Note"),tr("Note: If you choose way 1:Random,\nyou can only set Size of the string,\n"
                                             "Min and Max values won't be taken \nwhen you press Generate!"),QMessageBox::Cancel);
-
-    //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button String from types
+    if(ui->rbRandom->isChecked())
+    {
+       //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button String from types
        ui->spinBox_Min->setEnabled(false);
        ui->spinBox_Max->setEnabled(false);
+    }
 }//on_rbStr_clicked
 
 //radio button type Integer
 void SortingAlgorithms::on_rbInt_clicked()
 {
-    //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button Int from types
-    ui->spinBox_Min->setEnabled(true);
-    ui->spinBox_Max->setEnabled(true);
+    if(ui->rbRandom->isChecked())
+    {
+        //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button Int from types
+        ui->spinBox_Min->setEnabled(true);
+        ui->spinBox_Max->setEnabled(true);
+    }
 }//on_rbInt_clicked
 
 //radio button type Double
 void SortingAlgorithms::on_rbDouble_clicked()
 {
-    //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button Double from types
-    ui->spinBox_Min->setEnabled(true);
-    ui->spinBox_Max->setEnabled(true);
+    if(ui->rbRandom->isChecked())
+    {
+        //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button Double from types
+        ui->spinBox_Min->setEnabled(true);
+        ui->spinBox_Max->setEnabled(true);
+    }
 }//on_rbDouble_clicked
 
 
@@ -174,7 +182,7 @@ void SortingAlgorithms::on_btnClear_clicked()
     ui->btnGenerate_randSeq->setEnabled(true);
     ui->textBrowser_randSeq->setEnabled(true);
 
-    //set the different groups of Radio buttons- Random and Sequence - to null
+    //set the different groups of Radio buttons for Types,Random/Manual input and Sorting Algorithms - to null
     if(ui->Types_int_double_str_RbGroup->checkedButton() != 0)
     {
         ui->Types_int_double_str_RbGroup->setExclusive(false);
@@ -198,21 +206,33 @@ void SortingAlgorithms::on_btnClear_clicked()
 
 template <typename T>
 typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
-    if(ui->rbSelectionS->isChecked()){
+    if(ui->rbSelectionS->isChecked())
+    {
         return ArrayVector<T>::SELECTION_SORT;
-    } else if(ui->rbInsertionS->isChecked()) {
+    }
+    else if(ui->rbInsertionS->isChecked())
+    {
         return ArrayVector<T>::INSERTION_SORT;
-    } else if(ui->rbBubbleS->isChecked()) {
+    }
+    else if(ui->rbBubbleS->isChecked())
+    {
         return ArrayVector<T>::BUBBLE_SORT;
-    } else if(ui->rbQuickS->isChecked()) {
+    }
+    else if(ui->rbQuickS->isChecked())
+    {
         return ArrayVector<T>::QUICK_SORT;
-    } else if(ui->rbMegeS->isChecked()) {
+    }
+    else if(ui->rbMegeS->isChecked())
+    {
         return ArrayVector<T>::MERGE_SORT;
-    } else {
+    }
+    else
+    {
         QMessageBox::warning(this,tr("Missing"),tr("You don't have sorting algo selected"), QMessageBox::Cancel);
         return ArrayVector<T>::NONE;
     }
 }
+
 //push button Sort
 void SortingAlgorithms::on_btnSort_clicked()
 {

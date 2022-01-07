@@ -22,13 +22,13 @@ private slots:
     void on_btnClear_clicked();  //push button Clear
     void on_btnSort_clicked();  //push button Sort
 
-    void on_rbMinput_clicked(); //push button Minput - manual input
-    void on_rbRandom_clicked(); //push button Random
+    void on_rbMinput_clicked(); //radio button Minput - manual input
+    void on_rbRandom_clicked(); //radio button Random
 
 
-    void on_rbStr_clicked();
-    void on_rbInt_clicked();
-    void on_rbDouble_clicked();
+    void on_rbStr_clicked(); //radio button String
+    void on_rbInt_clicked(); //radio button Integer
+    void on_rbDouble_clicked(); //radio button Double
 
 
 private:
