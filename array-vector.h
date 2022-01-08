@@ -9,6 +9,11 @@
 
 using namespace std;
 
+class VectorExcpt : public runtime_error {
+    public:
+        VectorExcpt(const string& msg) : runtime_error(msg) {}
+};
+
 template <typename T>
 class ArrayVector
 {
@@ -358,7 +363,7 @@ void ArrayVector<T>::erase(int i)
     }
     else
     {
-        throw out_of_range("illegal index in function erase()");
+        throw VectorExcpt("illegal index in function erase()");
     }
 } // erase
 
@@ -371,7 +376,7 @@ void ArrayVector<T>::set(int i, T e)
     }
     else
     {
-        throw out_of_range("illegal index in function set()");
+        throw VectorExcpt("illegal index in function set()");
     }
 } // set
 
@@ -399,7 +404,7 @@ T& ArrayVector<T>::at(int i) const
     }
     else
     {
-        throw out_of_range("illegal index in function at()");
+        throw VectorExcpt("illegal index in function at()");
     }
 } // at
 
