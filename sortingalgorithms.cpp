@@ -28,13 +28,13 @@ SortingAlgorithms::SortingAlgorithms(QWidget *parent)
     min = 0;
     max = 0;
     size = 0;
-}//SortingAlgorithms
+} // SortingAlgorithms
 
 //destructor
 SortingAlgorithms::~SortingAlgorithms()
 {
     delete ui;
-}//~SortingAlgorithms
+} // ~SortingAlgorithms
 
 //radio button type String - rbStr
 void SortingAlgorithms::on_rbStr_clicked()
@@ -48,7 +48,7 @@ void SortingAlgorithms::on_rbStr_clicked()
        ui->spinBox_Min->setEnabled(false);
     }
     ui->max_Label->setText("Length:");
-}//on_rbStr_clicked
+} // on_rbStr_clicked
 
 //radio button type Integer
 void SortingAlgorithms::on_rbInt_clicked()
@@ -59,7 +59,7 @@ void SortingAlgorithms::on_rbInt_clicked()
         ui->spinBox_Min->setEnabled(true);
     }
     ui->max_Label->setText("Max:");
-}//on_rbInt_clicked
+} // on_rbInt_clicked
 
 //radio button type Double
 void SortingAlgorithms::on_rbDouble_clicked()
@@ -70,7 +70,7 @@ void SortingAlgorithms::on_rbDouble_clicked()
         ui->spinBox_Min->setEnabled(true);
         ui->max_Label->setText("Max:");
     }
-}//on_rbDouble_clicked
+} // on_rbDouble_clicked
 
 //radio button Minput - Manual Input
 void SortingAlgorithms::on_rbMinput_clicked()
@@ -82,7 +82,7 @@ void SortingAlgorithms::on_rbMinput_clicked()
     ui->spinBox_Size->setEnabled(false);
     ui->btnGenerate_randSeq->setEnabled(false);
     ui->textBrowser_randSeq->setEnabled(false);
-}//on_rbMinput_clicked
+} // on_rbMinput_clicked
 
 //radio button rbRandom - Random
 void SortingAlgorithms::on_rbRandom_clicked()
@@ -99,7 +99,7 @@ void SortingAlgorithms::on_rbRandom_clicked()
     {
        ui->spinBox_Min->setEnabled(false);
     }
-}//on_rbRandom_clicked
+} // on_rbRandom_clicked
 
 //push button Generate works only when whant to generate a Random sequence (i.e. when we checked radio button Random)
 void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
@@ -164,7 +164,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
         }
     }
 
-}//on_btnGenerate_clicked
+} // on_btnGenerate_clicked
 
 //push button Clear All
 void SortingAlgorithms::on_btnClear_clicked()
@@ -207,7 +207,7 @@ void SortingAlgorithms::on_btnClear_clicked()
         ui->Sorting_algos_RbGroup->setExclusive(true);
     }
 
-}//on_btnClear_clicked
+} // on_btnClear_clicked
 
 template <typename T>
 typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
@@ -277,7 +277,7 @@ void SortingAlgorithms::on_btnSort_clicked()
     ui->timeTaken_Label->setText(QString::fromStdString("Time taken in microseconds: " + to_string(duration.count())));
     ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
 
-}//on_btnSort_clicked
+} // on_btnSort_clicked
 
 //If user has selected manual input radio button or reading text files
 void SortingAlgorithms::manualInput()
@@ -333,7 +333,7 @@ void SortingAlgorithms::manualInput()
     {
         QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
     }
-}//manualInput
+} // manualInput
 
 //button to read a text file
 void SortingAlgorithms::on_pushButton_2_clicked()
@@ -361,6 +361,6 @@ void SortingAlgorithms::on_pushButton_2_clicked()
     {
         QMessageBox::warning(this,tr("Missing"),tr("Select manual input before opening a text file!"), QMessageBox::Ok);
     }
-}//on_pushButton_2_clicked
+} // on_pushButton_2_clicked
 
 
