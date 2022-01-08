@@ -17,39 +17,204 @@ class ArrayVector
             SELECTION_SORT, INSERTION_SORT, BUBBLE_SORT, MERGE_SORT, QUICK_SORT, NONE
         };
     public:
-        ArrayVector(); //default constructor
+        //! Default Constructor
+        /*!
+            Constructs the default empty object
+        */
+        ArrayVector();
+
+        //! Copy Constructor
+        /*!
+            Constructor on empty vector based on another vector
+            \param b    vector to copy
+        */
         ArrayVector(const ArrayVector<T>& b);
-        ~ArrayVector(); //destructor
-        ArrayVector<T>& operator =(const ArrayVector<T>& b); // assignment operator
-        int size() const; // returns the size
-        bool isEmpty() const; // checks if empty
-        T& at(int i) const; // access element at index i
-        void insert(int i, T e); // add element at index i
-        void set(int i, T e); // replace element at index i
-        void insert_back(T e); // add element at the back
-        void erase_back(); // remove element at the back
-        void erase(int i); // remove element at index i
-        void reserve(int N); // reserve N elements
+
+        //! Destructor
+        /*!
+            Destructs the object
+        */
+        ~ArrayVector();
+
+        //! Assignment operator overloaded
+        /*!
+            Give the value based on another vector
+            \param b    vector to copy
+        */
+        ArrayVector<T>& operator =(const ArrayVector<T>& b);
+
+        //! Get size
+        /*!
+            Get size
+            \return    get the size
+        */
+        int size() const;
+
+        //! Checks if empty
+        /*!
+            Checks if empty
+            \return     boolean empty or not
+        */
+        bool isEmpty() const;
+
+        //! Access element at index
+        /*!
+            Access element at index
+            \param i    index
+            \return     value
+        */
+        T& at(int i) const;
+
+        //! Insert new element at index
+        /*!
+            Insert new element at index
+            \param i    index
+            \param e     element
+        */
+        void insert(int i, T e);
+
+        //! Replace new element at index
+        /*!
+            Replace new element at index
+            \param i    index
+            \param e     element
+        */
+        void set(int i, T e);
+
+        //! Replace new element at index
+        /*!
+            Replace new element at index
+            \param e     element
+        */
+        void insert_back(T e);
+
+        //! Erase the last element
+        /*!
+            Erase the last element
+        */
+        void erase_back();
+
+        //! Erase element at index
+        /*!
+            Erase element at index
+            \param i    index
+        */
+        void erase(int i);
+
+        //! Reserve places
+        /*!
+            Reserve N places
+            \param N    places
+        */
+        void reserve(int N);
+
+        //! Sort
+        /*!
+            Sort with given algorithm
+            \param algo    algorithm
+        */
         void sort(SORTING_ALGO algo); // sort
+
+        //! Clear vector
+        /*!
+            Empties the vector
+        */
         void clear(); // clear all elements
 
         // Sorting algorithms:
+        //! Selection sort
+        /*!
+            Selection sort
+        */
         void selectionSort();
+
+        //! Insertion sort
+        /*!
+            Insertion sort
+        */
         void insertionSort();
+
+        //! Bubble sort
+        /*!
+            Bubble sort
+        */
         void bubbleSort();
+
+        //! Merge sort
+        /*!
+            Merge sort
+        */
         void mergeSort();
+
+        //! Merge sort recursive
+        /*!
+            Merge sort recursive
+            \param low     index on the left
+            \param mid     index on the middle
+            \param high    index on the right
+        */
         void merge(int low, int mid, int high);
+
+        //! Merge sort recursive
+        /*!
+            Merge sort recursive
+            \param low     index on the left
+            \param high    index on the right
+        */
         void mergeSort(int low, int high);
+
+        //! Quick sort
+        /*!
+            Quick sort
+        */
         void quickSort();
+
+        //! Quick sort helper recursive
+        /*!
+            Quick sort helper recursive
+            \param low    index on the left
+            \param high    index on the right
+            \return partition
+        */
         int partition(int low, int high);
+
+        //! Quick sort helper recursive
+        /*!
+            Quick sort helper recursive
+            \param low    index on the left
+            \param high    index on the right
+        */
         void quickSort(int low, int high);
 
+        //! Transforms to string sequence
+        /*!
+            Transforms to string sequence
+            \return     QString
+        */
         QString toString() const;
+
+        //! Join string elements into a sequence
+        /*!
+            Joins string elements with delimeter
+            \param delimeter    delimeter
+            \return     QString
+        */
         QString join(char delimeter) const;
     private:
         int n; // number of elements
         int capacity; // capacity of the vector
+
+        //! Frees the memory
+        /*!
+            Frees the memory
+        */
         void free();
+
+        //! Copy
+        /*!
+            Copies one vector to another
+            \param b    vector to copy
+        */
         void copy(const ArrayVector<T>& b);
         T* a;
 };
