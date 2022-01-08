@@ -11,25 +11,81 @@ class SortingAlgorithms : public QMainWindow
     Q_OBJECT
 
     public:
-        SortingAlgorithms(QWidget *parent = nullptr); //  constructor
-        ~SortingAlgorithms(); //  destructor
+        //! Default constructor
+        /*!
+            Default constructor
+            \param parent    parent widget
+        */
+        SortingAlgorithms(QWidget *parent = nullptr);
+
+        //! Destructor
+        /*!
+            Destructor
+        */
+        ~SortingAlgorithms();
+
+        //! Manual input
+        /*!
+            Manual input parsing
+        */
         void manualInput();
 
 
     private slots:
 
-        void on_btnGenerate_randSeq_clicked(); // push button to Generate a random sequence
-        void on_btnClear_clicked(); // push button Clear
-        void on_btnSort_clicked(); // push button Sort
+        //! Click handler on Generate clicked
+        /*!
+            Generate a random sequence
+        */
+        void on_btnGenerate_randSeq_clicked();
 
-        void on_rbMinput_clicked(); // radio button Minput - manual input
-        void on_rbRandom_clicked(); // radio button Random
+        //! Click handler on Clear clicked
+        /*!
+            Clear the forms
+        */
+        void on_btnClear_clicked();
 
-        void on_rbStr_clicked(); // radio button String
-        void on_rbInt_clicked(); // radio button Integer
-        void on_rbDouble_clicked(); // radio button Double
+        //! Click handler on Sort clicked
+        /*!
+            Sort the elements
+        */
+        void on_btnSort_clicked();
 
-        void on_pushButton_2_clicked();//read file button
+        //! Click handler on Manual input selected
+        /*!
+            Manual inputted elements
+        */
+        void on_rbMinput_clicked();
+
+        //! Click handler on Random clicked
+        /*!
+            Rondomly generated elements
+        */
+        void on_rbRandom_clicked();
+
+        //! Click handler on String selected
+        /*!
+            elements of type string
+        */
+        void on_rbStr_clicked();
+
+        //! Click handler on Integer selected
+        /*!
+            elements of type integer
+        */
+        void on_rbInt_clicked();
+
+        //! Click handler on Double selected
+        /*!
+            elements of type double
+        */
+        void on_rbDouble_clicked();
+
+        //! Click handler on Read file clicked
+        /*!
+            read file
+        */
+        void on_pushButton_2_clicked();
 
     private:
         template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();
