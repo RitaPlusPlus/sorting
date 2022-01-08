@@ -32,3 +32,4 @@ Initials: Rado = rr Angel = at Ivon = in Tanyo = tk
   - quick sort /rr/
 - **GUI** Display the measured time of each algorithm /at/
 - **GUI** Visually compare the complexity /tk/
+- Validate manual input and when reading files /tk/
