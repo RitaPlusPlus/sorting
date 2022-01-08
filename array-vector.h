@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <cstdlib> //malloc()
+#include <cstdlib> // malloc()
 #include "QString"
 
 using namespace std;
@@ -21,8 +21,8 @@ class ArrayVector
         ArrayVector(const ArrayVector<T>& b);
         ~ArrayVector(); //destructor
         ArrayVector<T>& operator =(const ArrayVector<T>& b); // assignment operator
-        int size() const;
-        bool isEmpty() const;
+        int size() const; // returns the size
+        bool isEmpty() const; // checks if empty
         T& at(int i) const; // access element at index i
         void insert(int i, T e); // add element at index i
         void set(int i, T e); // replace element at index i
@@ -30,9 +30,8 @@ class ArrayVector
         void erase_back(); // remove element at the back
         void erase(int i); // remove element at index i
         void reserve(int N); // reserve N elements
-        T& operator [](int i); // not working yet !!!
-        void sort(SORTING_ALGO algo);
-        void clear();
+        void sort(SORTING_ALGO algo); // sort
+        void clear(); // clear all elements
 
         // Sorting algorithms:
         void selectionSort();
@@ -61,13 +60,13 @@ ArrayVector<T>::ArrayVector()
     n = 0;
     capacity = 0;
     a = new T[NULL];
-}//ArrayVector
+} // ArrayVector
 
 template <typename T>
 ArrayVector<T>::ArrayVector(const ArrayVector<T>& b)
 {
     copy(b);
-}//ArrayVector
+} // ArrayVector
 
 template <typename T>
 ArrayVector<T>& ArrayVector<T>::operator =(const ArrayVector<T>& b) {
@@ -87,7 +86,7 @@ void ArrayVector<T>::copy(const ArrayVector<T>& b)
     {
         a[i] = b[i];
     }
-}//copy
+} // copy
 
 template <typename T>
 ArrayVector<T>::~ArrayVector()
@@ -97,7 +96,7 @@ ArrayVector<T>::~ArrayVector()
         delete[] a;
         a = nullptr;
     }
-}//ArrayVector
+} // ArrayVector
 
 template <typename T>
 void ArrayVector<T>::clear()
@@ -106,7 +105,7 @@ void ArrayVector<T>::clear()
     n = 0;
     capacity = 0;
     a = new T[NULL];
-}//clear
+} // clear
 
 template <typename T>
 QString ArrayVector<T>::toString() const
@@ -118,7 +117,7 @@ QString ArrayVector<T>::toString() const
         res.append(" ");
     }
     return res;
-}//toString
+} // toString
 
 template <typename T>
 QString ArrayVector<T>::join(char delimeter) const
@@ -130,7 +129,7 @@ QString ArrayVector<T>::join(char delimeter) const
         res.append(delimeter);
     }
     return res;
-}//toString
+} // toString
 
 template <typename T>
 void ArrayVector<T>::free()
@@ -140,25 +139,25 @@ void ArrayVector<T>::free()
         delete[] a;
         a = nullptr;
     }
-}//free
+} // free
 
 template <typename T>
 int ArrayVector<T>::size() const
 {
     return n;
-}//size
+} // size
 
 template <typename T>
 bool ArrayVector<T>::isEmpty() const
 {
     return size() == 0;
-}//isEmpty
+} // isEmpty
 
 template <typename T>
 void ArrayVector<T>::insert_back(T e)
 {
     insert(n, e);
-}//insert_back
+} // insert_back
 
 template <typename T>
 void ArrayVector<T>::insert(int i, T e)
@@ -173,13 +172,13 @@ void ArrayVector<T>::insert(int i, T e)
     }
     a[i] = e;
     n++;
-}//insert
+} // insert
 
 template <typename T>
 void ArrayVector<T>::erase_back()
 {
     erase(n-1);
-}//erase_back
+} // erase_back
 
 template <typename T>
 void ArrayVector<T>::erase(int i)
@@ -196,7 +195,7 @@ void ArrayVector<T>::erase(int i)
     {
         throw out_of_range("illegal index in function erase()");
     }
-}//erase
+} // erase
 
 template <typename T>
 void ArrayVector<T>::set(int i, T e)
@@ -209,7 +208,7 @@ void ArrayVector<T>::set(int i, T e)
     {
         throw out_of_range("illegal index in function set()");
     }
-}//set
+} // set
 
 template <typename T>
 void ArrayVector<T>::reserve(int N)
@@ -224,13 +223,7 @@ void ArrayVector<T>::reserve(int N)
     }
     free();
     a = b;
-}//reserve
-
-template <typename T>
-T& ArrayVector<T>::operator[](int i)
-{
-    return a[i];
-}//operator[] // not working yet !!!
+} // reserve
 
 template <typename T>
 T& ArrayVector<T>::at(int i) const
@@ -243,7 +236,7 @@ T& ArrayVector<T>::at(int i) const
     {
         throw out_of_range("illegal index in function at()");
     }
-}//at
+} // at
 
 template <typename T>
 void ArrayVector<T>::sort(SORTING_ALGO algo)
@@ -256,7 +249,7 @@ void ArrayVector<T>::sort(SORTING_ALGO algo)
         case MERGE_SORT: mergeSort(); break;
         case QUICK_SORT: quickSort(); break;
     }
-}//sort
+} // sort
 
 template <typename T>
 void ArrayVector<T>::selectionSort()
@@ -288,12 +281,12 @@ void ArrayVector<T>::selectionSort()
            //place at start
         }
     }
-}//selectionSort
+} // selectionSort
 
 template <typename T>
 void ArrayVector<T>::insertionSort()
 {
-}//insertionSort
+} // insertionSort
 
 template <typename T>
 void ArrayVector<T>::bubbleSort()
@@ -314,17 +307,17 @@ void ArrayVector<T>::bubbleSort()
         }
      }
 
-     // IF no two elements were swapped by inner loop, then break
+     // If none were swapped, then it's already sorted
      if (swapped == false)
         break;
     }
-}//bubbleSort
+} // bubbleSort
 
 template <typename T>
 void ArrayVector<T>::mergeSort()
 {
     mergeSort(0, n - 1); //(n-1) for last index
-}//mergeSort
+} // mergeSort
 
 template <typename T>
 void ArrayVector<T>::merge(int low, int mid, int high) //low = from and high = to
@@ -374,7 +367,7 @@ void ArrayVector<T>::merge(int low, int mid, int high) //low = from and high = t
      {
          a[i] = tmp[indx_tmp++];
      }
-}//mergeSort
+} // mergeSort
 
 template <typename T>
 void ArrayVector<T>::mergeSort(int low, int high)
@@ -388,44 +381,45 @@ void ArrayVector<T>::mergeSort(int low, int high)
     mergeSort(low, mid); // recursive call
     mergeSort(mid + 1, high); // recursive call
     merge(low, mid, high); //merge two sorted sequences
-}//mergeSort
+} // mergeSort
 
 template <typename T>
 void ArrayVector<T>::quickSort()
 {
     quickSort(0, n - 1);
-}//quickSort
+} // quickSort
 
 template <typename T>
 int ArrayVector<T>::partition(int low, int high)
 {
-    T pivot = a[high]; // pivot
+    T pivot = a[high];
     int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
 
     for (int j = low; j <= high - 1; j++)
     {
-        // If current element is smaller than the pivot
         if (a[j] < pivot)
         {
             i++; // increment index of smaller element
+            // Swap
             T temp = a[i];
             a[i] = a[j];
             a[j] = temp;
         }
     }
+    // Swap
     T temp = a[i + 1];
     a[i + 1] = a[high];
     a[high] = temp;
+
     return (i + 1);
-}//quickSort
+} // quickSort
 
 template <typename T>
 void ArrayVector<T>::quickSort(int low, int high)
 {
     if (low < high)
     {
-        /* pi is partitioning index, arr[p] is now
-        at right place */
+        // pi is partitioning index, arr[p] is nowat right place
         int pi = partition(low, high);
 
         // Separately sort elements before
@@ -433,6 +427,6 @@ void ArrayVector<T>::quickSort(int low, int high)
         quickSort(low, pi - 1);
         quickSort(pi + 1, high);
     }
-}//quickSort
+} // quickSort
 
 #endif
