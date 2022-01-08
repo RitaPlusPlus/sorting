@@ -245,47 +245,50 @@ void SortingAlgorithms::on_btnSort_clicked()
     {
         manualInput();
     }
+
+    auto start = high_resolution_clock::now();
+    auto stop = high_resolution_clock::now();
+    if(ui->rbInt->isChecked())
+    {
+      int_vector.sort(getSortAlgo<int>());
+      stop = high_resolution_clock::now();
+      sequence = int_vector.toString();
+    }
+    //else if type is DOUBLE
+    else if(ui->rbDouble->isChecked())
+    {
+        double_vector.sort(getSortAlgo<double>());
+        stop = high_resolution_clock::now();
+        sequence = double_vector.toString();
+    }
+    //else if type is STRING
+    else if(ui->rbStr->isChecked())
+    {
+        string_vector.sort(getSortAlgo<string>());
+        stop = high_resolution_clock::now();
+        sequence = string_vector.join(' ');
+    }
     else
     {
-        auto start = high_resolution_clock::now();
-        auto stop = high_resolution_clock::now();
-        if(ui->rbInt->isChecked())
-        {
-          int_vector.sort(getSortAlgo<int>());
-          stop = high_resolution_clock::now();
-          sequence = int_vector.toString();
-        }
-        //else if type is DOUBLE
-        else if(ui->rbDouble->isChecked())
-        {
-            double_vector.sort(getSortAlgo<double>());
-            stop = high_resolution_clock::now();
-            sequence = double_vector.toString();
-        }
-        //else if type is STRING
-        else if(ui->rbStr->isChecked())
-        {
-            string_vector.sort(getSortAlgo<string>());
-            stop = high_resolution_clock::now();
-            sequence = string_vector.join(' ');
-        }
-        else
-        {
-            QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
-        }
-
-        auto duration = duration_cast<microseconds>(stop - start);
-        ui->timeTaken_Label->setText(QString::fromStdString("Time taken in microseconds: " + to_string(duration.count())));
-        ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
     }
+
+    auto duration = duration_cast<microseconds>(stop - start);
+    ui->timeTaken_Label->setText(QString::fromStdString("Time taken in microseconds: " + to_string(duration.count())));
+    ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
+
 }//on_btnSort_clicked
 
 //If user has selected manual input radio button or reading text files
 void SortingAlgorithms::manualInput()
 {
+    int_vector.clear();
+    double_vector.clear();
+    string_vector.clear();
     //takes users input from manual input textbox
     sequence = ui->textE_Minput->toPlainText();
     bool ok;
+
     //if type is INT
    if(ui->rbInt->isChecked())
     {
@@ -300,8 +303,6 @@ void SortingAlgorithms::manualInput()
                 break;
             }
         }
-            int_vector.sort(getSortAlgo<int>());
-            sequence = int_vector.toString();
     }
     //else if type is DOUBLE
     else if(ui->rbDouble->isChecked())
@@ -317,8 +318,6 @@ void SortingAlgorithms::manualInput()
                 break;
             }
         }
-            double_vector.sort(getSortAlgo<double>());
-            sequence = double_vector.toString();
     }
     //else if type is STRING
     else if(ui->rbStr->isChecked())
@@ -329,18 +328,11 @@ void SortingAlgorithms::manualInput()
         {
             string_vector.insert_back(num.toStdString());
         }
-        string_vector.sort(getSortAlgo<string>());
-        sequence = string_vector.join(' ');
     }
     else
     {
         QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
     }
-
-    ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
-    int_vector.clear();
-    double_vector.clear();
-    //string_vector.clear();
 }//manualInput
 
 //button to read a text file
