@@ -46,6 +46,7 @@ class ArrayVector
         void quickSort(int low, int high);
 
         QString toString() const;
+        QString join(char delimeter) const;
     private:
         int n; // number of elements
         int capacity; // capacity of the vector
@@ -115,6 +116,18 @@ QString ArrayVector<T>::toString() const
     {
         res.append(QString::number(a[i]));
         res.append(" ");
+    }
+    return res;
+}//toString
+
+template <typename T>
+QString ArrayVector<T>::join(char delimeter) const
+{
+    QString res = "";
+    for(int i = 0; i < n; i++)
+    {
+        res.append(QString::fromStdString(a[i]));
+        res.append(delimeter);
     }
     return res;
 }//toString

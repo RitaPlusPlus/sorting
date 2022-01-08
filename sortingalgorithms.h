@@ -43,7 +43,7 @@ private:
 
     ArrayVector<int> int_vector;
     ArrayVector<double> double_vector;
-//    ArrayVector<string> string_vector;
+    ArrayVector<string> string_vector;
      QString sequence;
      QStringList list;
     //const char alphanum[63] = {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; //numbers,capital and small letters

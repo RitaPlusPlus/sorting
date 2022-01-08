@@ -14,7 +14,9 @@
 #include <cstdlib> //RAND_MAX
 #include <string>
 #include <iomanip>
+#include <chrono>
 
+using namespace std::chrono;
 
 //constructor
 SortingAlgorithms::SortingAlgorithms(QWidget *parent)
@@ -37,15 +39,15 @@ SortingAlgorithms::~SortingAlgorithms()
 //radio button type String - rbStr
 void SortingAlgorithms::on_rbStr_clicked()
 {
-    //a message that informs the user to know that string type only supports the value of Size
-    QMessageBox::warning(this,tr("Note"),tr("Note: If you choose way 1:Random,\nyou can only set Size of the string,\n"
-                                            "Min and Max values won't be taken \nwhen you press Generate!"),QMessageBox::Cancel);
+    //a message that informs the user to know that string type only supports the value of Size and Min
+    QMessageBox::warning(this,tr("Note"),tr("Note: If you choose way 1:Random,\nyou can only set Size and Length of the string,\n"
+                                            "Min value won't be taken \nwhen you press Generate!"),QMessageBox::Cancel);
     if(ui->rbRandom->isChecked())
     {
        //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button String from types
        ui->spinBox_Min->setEnabled(false);
-       ui->spinBox_Max->setEnabled(false);
     }
+    ui->max_Label->setText("Length:");
 }//on_rbStr_clicked
 
 //radio button type Integer
@@ -55,8 +57,8 @@ void SortingAlgorithms::on_rbInt_clicked()
     {
         //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button Int from types
         ui->spinBox_Min->setEnabled(true);
-        ui->spinBox_Max->setEnabled(true);
     }
+    ui->max_Label->setText("Max:");
 }//on_rbInt_clicked
 
 //radio button type Double
@@ -66,7 +68,7 @@ void SortingAlgorithms::on_rbDouble_clicked()
     {
         //shows which parts of the ui are enabled(true) or unenabled(false) if the user clicks radio button Double from types
         ui->spinBox_Min->setEnabled(true);
-        ui->spinBox_Max->setEnabled(true);
+        ui->max_Label->setText("Max:");
     }
 }//on_rbDouble_clicked
 
@@ -96,7 +98,6 @@ void SortingAlgorithms::on_rbRandom_clicked()
     if(ui->rbStr->isChecked())
     {
        ui->spinBox_Min->setEnabled(false);
-       ui->spinBox_Max->setEnabled(false);
     }
 }//on_rbRandom_clicked
 
@@ -145,16 +146,21 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
         {
             sequence = "";
 
-           const char alphanum[] =
-                 {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; //numbers,capital and small letters
+            const char alphanum[] =
+                 {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; // numbers,capital and small letters
 
-                for (int i = 0; i < size; ++i)
+            string_vector.clear();
+            for (int i = 0; i < size; ++i)
+            {
+                string temp = "";
+                for (int i = 0; i < max; ++i)
                 {
-                    char ch = alphanum[rand() % (sizeof(alphanum) - 1)];
-//                    string_vector.insert_back(ch);
-                    sequence = sequence + ch + " ";
+                    temp += alphanum[rand() % (sizeof(alphanum) - 1)];
                 }
-                ui->textBrowser_randSeq->setText(sequence);
+                string_vector.insert_back(temp);
+                sequence += QString::fromStdString(temp + " ");
+            }
+            ui->textBrowser_randSeq->setText(sequence);
         }
     }
 
@@ -241,27 +247,35 @@ void SortingAlgorithms::on_btnSort_clicked()
     }
     else
     {
+        auto start = high_resolution_clock::now();
+        auto stop = high_resolution_clock::now();
         if(ui->rbInt->isChecked())
         {
           int_vector.sort(getSortAlgo<int>());
+          stop = high_resolution_clock::now();
           sequence = int_vector.toString();
         }
         //else if type is DOUBLE
         else if(ui->rbDouble->isChecked())
         {
             double_vector.sort(getSortAlgo<double>());
+            stop = high_resolution_clock::now();
             sequence = double_vector.toString();
         }
         //else if type is STRING
         else if(ui->rbStr->isChecked())
         {
-//        string_vector.sort(getSortAlgo<string>());
+            string_vector.sort(getSortAlgo<string>());
+            stop = high_resolution_clock::now();
+            sequence = string_vector.join(' ');
         }
         else
         {
             QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
         }
 
+        auto duration = duration_cast<microseconds>(stop - start);
+        ui->timeTaken_Label->setText(QString::fromStdString("Time taken in microseconds: " + to_string(duration.count())));
         ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
     }
 }//on_btnSort_clicked
@@ -309,14 +323,14 @@ void SortingAlgorithms::manualInput()
     //else if type is STRING
     else if(ui->rbStr->isChecked())
     {
-        /*list = sequence.split(" ");
+        list = sequence.split(" ");
 
         foreach(QString num, list)
         {
-            string_vector.insert_back(num.toString());
+            string_vector.insert_back(num.toStdString());
         }
         string_vector.sort(getSortAlgo<string>());
-        sequence = string_vector.toString();*/
+        sequence = string_vector.join(' ');
     }
     else
     {
