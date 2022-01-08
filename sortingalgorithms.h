@@ -15,6 +15,8 @@ class SortingAlgorithms : public QMainWindow
 public:
     SortingAlgorithms(QWidget *parent = nullptr); //constructor
     ~SortingAlgorithms(); //destructor
+    void manualInput();
+
 
 private slots:
 
@@ -43,8 +45,7 @@ private:
     ArrayVector<double> double_vector;
 //    ArrayVector<string> string_vector;
      QString sequence;
-     int integers_sequence;
-     double doubles_sequence;
+     QStringList list;
     //const char alphanum[63] = {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; //numbers,capital and small letters
 
 };

@@ -16,7 +16,6 @@
 #include <iomanip>
 
 
-
 //constructor
 SortingAlgorithms::SortingAlgorithms(QWidget *parent)
     : QMainWindow(parent)
@@ -27,8 +26,6 @@ SortingAlgorithms::SortingAlgorithms(QWidget *parent)
     min = 0;
     max = 0;
     size = 0;
-    integers_sequence = 0;
-    doubles_sequence = 0;
 }//SortingAlgorithms
 
 //destructor
@@ -36,7 +33,6 @@ SortingAlgorithms::~SortingAlgorithms()
 {
     delete ui;
 }//~SortingAlgorithms
-
 
 //radio button type String - rbStr
 void SortingAlgorithms::on_rbStr_clicked()
@@ -74,7 +70,6 @@ void SortingAlgorithms::on_rbDouble_clicked()
     }
 }//on_rbDouble_clicked
 
-
 //radio button Minput - Manual Input
 void SortingAlgorithms::on_rbMinput_clicked()
 {
@@ -95,6 +90,8 @@ void SortingAlgorithms::on_rbRandom_clicked()
     ui->btnGenerate_randSeq->setEnabled(true);
     ui->textBrowser_randSeq->setEnabled(true);
     ui->textE_Minput->setEnabled(false);
+    ui->spinBox_Min->setEnabled(true);
+    ui->spinBox_Max->setEnabled(true);
     //if the user checks the radio button of String type the spinboxes Min and Max will be unabled
     if(ui->rbStr->isChecked())
     {
@@ -238,44 +235,126 @@ typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
 //push button Sort
 void SortingAlgorithms::on_btnSort_clicked()
 {
-    if(ui->rbInt->isChecked())
+    if(ui->rbMinput->isChecked())
     {
-        int_vector.sort(getSortAlgo<int>());
-        sequence = int_vector.toString();
+        manualInput();
+    }
+    else
+    {
+        if(ui->rbInt->isChecked())
+        {
+          int_vector.sort(getSortAlgo<int>());
+          sequence = int_vector.toString();
+        }
+        //else if type is DOUBLE
+        else if(ui->rbDouble->isChecked())
+        {
+            double_vector.sort(getSortAlgo<double>());
+            sequence = double_vector.toString();
+        }
+        //else if type is STRING
+        else if(ui->rbStr->isChecked())
+        {
+//        string_vector.sort(getSortAlgo<string>());
+        }
+        else
+        {
+            QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
+        }
+
+        ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
+    }
+}//on_btnSort_clicked
+
+//If user has selected manual input radio button or reading text files
+void SortingAlgorithms::manualInput()
+{
+    //takes users input from manual input textbox
+    sequence = ui->textE_Minput->toPlainText();
+    bool ok;
+    //if type is INT
+   if(ui->rbInt->isChecked())
+    {
+        list = sequence.split(" ");
+
+        foreach(QString num, list)
+        {
+            int_vector.insert_back(num.toInt(&ok));
+            if(!ok)
+            {
+                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non numeric value!"), QMessageBox::Cancel);
+                break;
+            }
+        }
+            int_vector.sort(getSortAlgo<int>());
+            sequence = int_vector.toString();
     }
     //else if type is DOUBLE
     else if(ui->rbDouble->isChecked())
     {
-        //double_vector = sequence.toDouble();
-        double_vector.sort(getSortAlgo<double>());
-        sequence = double_vector.toString();
+        list = sequence.split(" ");
+
+        foreach(QString num, list)
+        {
+            double_vector.insert_back(num.toDouble(&ok));
+            if(!ok)
+            {
+                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non numeric value!"), QMessageBox::Cancel);
+                break;
+            }
+        }
+            double_vector.sort(getSortAlgo<double>());
+            sequence = double_vector.toString();
     }
     //else if type is STRING
     else if(ui->rbStr->isChecked())
     {
-//        string_vector.sort(getSortAlgo<string>());
+        /*list = sequence.split(" ");
+
+        foreach(QString num, list)
+        {
+            string_vector.insert_back(num.toString());
+        }
+        string_vector.sort(getSortAlgo<string>());
+        sequence = string_vector.toString();*/
     }
-        ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
-}//on_btnSort_clicked
+    else
+    {
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
+    }
 
+    ui->textBrowser_sortedSeq->setText(sequence); //print the result in textBrowser_sortedSeq
+    int_vector.clear();
+    double_vector.clear();
+    //string_vector.clear();
+}//manualInput
 
-
+//button to read a text file
 void SortingAlgorithms::on_pushButton_2_clicked()
 {
-    QString file_name = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath());
-    QMessageBox::information(this, "..", file_name);
-    QFile file(file_name);
-
-    if (!file.open(QFile::ReadOnly | QFile::Text))
+    if(ui->rbMinput->isChecked())
     {
-        QMessageBox::warning(this, "title", "file not open");
+        QString file_name = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath());
+        QFile file(file_name);
+
+        if (!file.open(QFile::ReadOnly | QFile::Text))
+        {
+            QMessageBox::warning(this, "title", "file not open");
+        }
+        else
+        {
+            QMessageBox::information(this, "..", file_name);
+        }
+        QTextStream in(&file);
+        QString text = in.readAll();
+        ui->textE_Minput->setPlainText(text);
+
+        file.close();
     }
-    QTextStream in(&file);
-    QString text = in.readAll();
-    ui->textEdit_File_Name->setPlainText(text);
-
-    file.close();
-}
-
+    else
+    {
+        QMessageBox::warning(this,tr("Missing"),tr("Select manual input before opening a text file!"), QMessageBox::Ok);
+    }
+}//on_pushButton_2_clicked
 
 
