@@ -234,30 +234,36 @@ void ArrayVector<T>::sort(SORTING_ALGO algo)
         case MERGE_SORT: mergeSort(); break;
         case QUICK_SORT: quickSort(); break;
     }
-}
+}//sort
 
 template <typename T>
 void ArrayVector<T>::selectionSort()
 {
-    int i, j, loc;
-    for(i = 0; i < n-1; i++)
+    //On each step, the algorithm is selecting the smallest element in the sequence
+    //and is placing it in the sorted sequence preamble.
+
+    int sub_index,min_pos,j;
+
+    for (sub_index = 0; sub_index < n - 1; sub_index++)
     {
-        T min = a[i];
-        loc = i;
-        for(j = i + 1; j < n; j++)
+        T min = a[sub_index];
+        min_pos = sub_index;
+
+        for (j = sub_index + 1; j < n; j++)
         {
-            if(min > a[j])
+            if (min > a[j])
             {
                 min = a[j];
-                loc = j;
+                min_pos = j;
             }
         }
 
-        if (loc != i)
+        if (min_pos != sub_index)
         {
-            T temp = a[i];
-            a[i] = a[loc];
-            a[loc] = temp;
+            T tmp = a[sub_index];
+            a[sub_index] = a[min_pos];
+            a[min_pos] = tmp;
+           //place at start
         }
     }
 }//selectionSort
@@ -295,65 +301,66 @@ void ArrayVector<T>::bubbleSort()
 template <typename T>
 void ArrayVector<T>::mergeSort()
 {
-    mergeSort(0, n - 1);
+    mergeSort(0, n - 1); //(n-1) for last index
 }//mergeSort
 
 template <typename T>
 void ArrayVector<T>::merge(int low, int mid, int high) //low = from and high = to
 {
-     //int n = high - low + 1; //size of the range to be merged
+     int n = high - low + 1; //size of the range to be merged
 
-    //merge both halves into a temporary  b /
-     T* b = (T*) malloc((high - low + 1)*sizeof(T)); //allocate a block of uninitialized memory of T size to a T pointer b
+    //merge both halves into a temporary  tmp
+      T tmp[n];
+//    T* tmp = (T*) malloc((high - low + 1)*sizeof(T)); //allocate a block of uninitialized memory of T size to a T pointer tmp
 
-     int i1 = low; //index for first sequence
-     int i2 = mid + 1; //index for second sequence/ next element to consider in the second half
-     int j = 0; // next open position in b, or in other words, index for merged sequence
+     int indx_1 = low; //index for first sequence
+     int indx_2 = mid + 1; //index for second sequence/ next element to consider in the second half
+     int indx_tmp = 0; // next open position in tmp, or in other words, index for merged sequence
 
-    //as long as neither i1 nor i2 past the end, move the smaller element into b
-     while (i1 <= mid && i2 <= high)
+    //as long as neither i1 nor i2 past the end, move the smaller element into tmp
+     while (indx_1 <= mid && indx_2 <= high)
      {
-         if (a[i1] < a[i2]) //the element from the first sequence is the minimal
+         if (a[indx_1] < a[indx_2]) //the element from the first sequence is the minimal
          {
-             b[j] = a[i1];
-             i1++;
+             tmp[indx_tmp] = a[indx_1];
+             indx_1++;
          }
          else
          {
-             b[j] = a[i2];
-             i2++;
+             tmp[indx_tmp] = a[indx_2];
+             indx_2++;
          }
-         j++;
+         indx_tmp++;
      }
     //note that only one of the two while loops below is executed
 
     //copy any remaining entries of the first half
-     while (i1 <= mid)
+     while (indx_1 <= mid)
      {
-         b[j] = a[i1];
-         i1++;
-         j++;
+         tmp[indx_tmp++] = a[indx_1++];
      }
 
     //copy any remaining entries of the second half
-     while (i2 <= high)
+     while (indx_2 <= high)
      {
-         b[j] = a[i2];
-         i2++;
-         j++;
+         tmp[indx_tmp++] = a[indx_2++];
      }
 
-    //copy back from the temporary b
-     for (j = 0; j < n; j++)
+     indx_tmp = 0;
+    //copy back from the temporary tmp to original one
+     for (int i = low; i <= high; i++)
      {
-         a[low + j] = b[j];
+         a[i] = tmp[indx_tmp++];
      }
 }//mergeSort
 
 template <typename T>
 void ArrayVector<T>::mergeSort(int low, int high)
 {
-    if (low == high) return;
+    if (low == high)
+    {
+        return;
+    }
     int mid = (low + high) / 2;
    //sort the first and the second half
     mergeSort(low, mid); // recursive call
@@ -370,7 +377,7 @@ void ArrayVector<T>::quickSort()
 template <typename T>
 int ArrayVector<T>::partition(int low, int high)
 {
-    int pivot = a[high]; // pivot
+    T pivot = a[high]; // pivot
     int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
 
     for (int j = low; j <= high - 1; j++)
