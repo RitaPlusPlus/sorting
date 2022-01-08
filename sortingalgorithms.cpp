@@ -120,6 +120,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
         {
             sequence = "";
             int_vector.clear();
+            int_vector.reserve(size);
             for (int i = 0; i < size; i++)
             {
                 int num = min + rand() % (max - min + 1);
@@ -133,6 +134,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
         {
             sequence = "";
             double_vector.clear();
+            double_vector.reserve(size);
             for (int i = 0; i < size; i++)
             {
                 double num = min + rand() / (float)RAND_MAX * (max - min + 1);
@@ -150,6 +152,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
                  {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; // numbers,capital and small letters
 
             string_vector.clear();
+            string_vector.reserve(size);
             for (int i = 0; i < size; ++i)
             {
                 string temp = "";

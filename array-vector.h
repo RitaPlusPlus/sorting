@@ -584,7 +584,7 @@ void ArrayVector<T>::quickSort(int low, int high)
 {
     if (low < high)
     {
-        // pi is partitioning index, arr[p] is nowat right place
+        // pi is partitioning index, arr[p] is now at right place
         int pi = partition(low, high);
 
         // Separately sort elements before
