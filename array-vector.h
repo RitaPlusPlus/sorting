@@ -18,8 +18,9 @@ class ArrayVector
         };
     public:
         ArrayVector(); //default constructor
-        ArrayVector(ArrayVector<T>& b);
+        ArrayVector(const ArrayVector<T>& b);
         ~ArrayVector(); //destructor
+        ArrayVector<T>& operator =(const ArrayVector<T>& b); // assignment operator
         int size() const;
         bool isEmpty() const;
         T& at(int i) const; // access element at index i
@@ -62,10 +63,16 @@ ArrayVector<T>::ArrayVector()
 }//ArrayVector
 
 template <typename T>
-ArrayVector<T>::ArrayVector(ArrayVector<T>& b)
+ArrayVector<T>::ArrayVector(const ArrayVector<T>& b)
 {
     copy(b);
 }//ArrayVector
+
+template <typename T>
+ArrayVector<T>& ArrayVector<T>::operator =(const ArrayVector<T>& b) {
+    free();
+    copy(b);
+}
 
 template <typename T>
 void ArrayVector<T>::copy(const ArrayVector<T>& b)

@@ -224,7 +224,7 @@ typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
     {
         return ArrayVector<T>::QUICK_SORT;
     }
-    else if(ui->rbMegeS->isChecked())
+    else if(ui->rbMergeS->isChecked())
     {
         return ArrayVector<T>::MERGE_SORT;
     }

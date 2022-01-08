@@ -145,7 +145,7 @@ rgba(234, 248, 253,100);
               </widget>
              </item>
              <item>
-              <widget class="QRadioButton" name="rbMegeS">
+              <widget class="QRadioButton" name="rbMergeS">
                <property name="text">
                 <string>Merge Sort </string>
                </property>
