@@ -72,6 +72,8 @@ template <typename T>
 ArrayVector<T>& ArrayVector<T>::operator =(const ArrayVector<T>& b) {
     free();
     copy(b);
+
+    return *this;
 }
 
 template <typename T>
