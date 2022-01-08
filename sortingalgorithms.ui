@@ -72,20 +72,17 @@ rgba(234, 248, 253,100);
           </property>
          </spacer>
         </item>
-        <item row="7" column="0">
-         <widget class="QPushButton" name="btnClear">
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-            <weight>50</weight>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
+        <item row="4" column="0">
+         <widget class="QLabel" name="timeTaken_Label">
           <property name="text">
-           <string>Clear All</string>
+           <string>Time taken in microseconds:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="btnSort">
+          <property name="text">
+           <string>Sort</string>
           </property>
          </widget>
         </item>
@@ -206,18 +203,6 @@ rgba(234, 248, 253,100);
           </layout>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="btnSort">
-          <property name="font">
-           <font>
-            <pointsize>14</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>Sort</string>
-          </property>
-         </widget>
-        </item>
         <item row="8" column="0">
          <widget class="QPushButton" name="btnCancel">
           <property name="text">
@@ -225,10 +210,10 @@ rgba(234, 248, 253,100);
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="timeTaken_Label">
+        <item row="7" column="0">
+         <widget class="QPushButton" name="btnClear">
           <property name="text">
-           <string>Time taken in microseconds:</string>
+           <string>Clear All</string>
           </property>
          </widget>
         </item>
@@ -354,14 +339,6 @@ rgba(234, 248, 253,100);
            </item>
            <item>
             <widget class="QPushButton" name="btnGenerate_randSeq">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
              <property name="text">
               <string>Generate</string>
              </property>
