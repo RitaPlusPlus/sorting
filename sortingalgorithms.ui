@@ -74,6 +74,13 @@ rgba(234, 248, 253,100);
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="timeTaken_Label">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>Time taken in microseconds:</string>
           </property>
@@ -88,6 +95,11 @@ rgba(234, 248, 253,100);
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Sorted sequence of elements:</string>
           </property>
@@ -105,18 +117,18 @@ rgba(234, 248, 253,100);
            </font>
           </property>
           <property name="title">
-           <string>Read/Write File:</string>
+           <string>Read/Write File</string>
           </property>
           <layout class="QGridLayout" name="gridLayout">
            <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="btnWrite">
              <property name="text">
               <string>Write to text file</string>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="btnRead">
              <property name="text">
               <string>Read a text file</string>
              </property>
@@ -225,7 +237,7 @@ rgba(234, 248, 253,100);
          <widget class="QGroupBox" name="groupBox_way2_minput">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>13</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -266,7 +278,7 @@ rgba(234, 248, 253,100);
          <widget class="QGroupBox" name="groupBox_way1_random">
           <property name="font">
            <font>
-            <pointsize>12</pointsize>
+            <pointsize>13</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -380,7 +392,7 @@ rgba(234, 248, 253,100);
            </font>
           </property>
           <property name="title">
-           <string>Type:</string>
+           <string>Type</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
@@ -443,8 +455,8 @@ rgba(234, 248, 253,100);
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="Types_int_double_str_RbGroup"/>
   <buttongroup name="Rand_or_Input_RbGroup"/>
+  <buttongroup name="Types_int_double_str_RbGroup"/>
   <buttongroup name="Sorting_algos_RbGroup"/>
  </buttongroups>
 </ui>

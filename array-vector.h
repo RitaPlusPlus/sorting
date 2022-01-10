@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <cstdlib> // malloc()
+#include <cstdlib>
 #include "QString"
 
 using namespace std;
@@ -244,7 +244,7 @@ ArrayVector<T>& ArrayVector<T>::operator =(const ArrayVector<T>& b) {
     copy(b);
 
     return *this;
-}
+} // operator =
 
 template <typename T>
 void ArrayVector<T>::copy(const ArrayVector<T>& b)
@@ -445,10 +445,10 @@ void ArrayVector<T>::selectionSort()
 
         if (min_pos != sub_index)
         {
+            //place at start
             T tmp = a[sub_index];
             a[sub_index] = a[min_pos];
             a[min_pos] = tmp;
-           //place at start
         }
     }
 } // selectionSort
@@ -495,8 +495,7 @@ void ArrayVector<T>::merge(int low, int mid, int high) //low = from and high = t
      int n = high - low + 1; //size of the range to be merged
 
     //merge both halves into a temporary  tmp
-      T tmp[n];
-//    T* tmp = (T*) malloc((high - low + 1)*sizeof(T)); //allocate a block of uninitialized memory of T size to a T pointer tmp
+     T tmp[n];
 
      int indx_1 = low; //index for first sequence
      int indx_2 = mid + 1; //index for second sequence/ next element to consider in the second half

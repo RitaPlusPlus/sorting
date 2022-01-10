@@ -236,10 +236,10 @@ typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
     }
     else
     {
-        QMessageBox::warning(this,tr("Missing"),tr("You don't have sorting algo selected"), QMessageBox::Cancel);
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have a sorting algorithm selected."), QMessageBox::Cancel);
         return ArrayVector<T>::NONE;
     }
-}
+} // getSortAlgo
 
 //push button Sort
 void SortingAlgorithms::on_btnSort_clicked()
@@ -302,7 +302,7 @@ void SortingAlgorithms::manualInput()
             int_vector.insert_back(num.toInt(&ok));
             if(!ok)
             {
-                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non numeric value!"), QMessageBox::Cancel);
+                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non-numeric value!"), QMessageBox::Cancel);
                 break;
             }
         }
@@ -317,7 +317,7 @@ void SortingAlgorithms::manualInput()
             double_vector.insert_back(num.toDouble(&ok));
             if(!ok)
             {
-                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non numeric value!"), QMessageBox::Cancel);
+                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non-numeric value!"), QMessageBox::Cancel);
                 break;
             }
         }
@@ -334,12 +334,12 @@ void SortingAlgorithms::manualInput()
     }
     else
     {
-        QMessageBox::warning(this,tr("Missing"),tr("You don't have variable type selected!"), QMessageBox::Cancel);
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have a variable type selected!"), QMessageBox::Cancel);
     }
 } // manualInput
 
-//button to read a text file
-void SortingAlgorithms::on_pushButton_2_clicked()
+//push button to read a text file
+void SortingAlgorithms::on_btnRead_clicked()
 {
     if(ui->rbMinput->isChecked())
     {
@@ -362,8 +362,8 @@ void SortingAlgorithms::on_pushButton_2_clicked()
     }
     else
     {
-        QMessageBox::warning(this,tr("Missing"),tr("Select manual input before opening a text file!"), QMessageBox::Ok);
+        QMessageBox::warning(this,tr("Missing"),tr("Select Manual Input before opening a text file!"), QMessageBox::Ok);
     }
-} // on_pushButton_2_clicked
+} // on_btnRead_clicked
 
 
