@@ -91,7 +91,7 @@ class SortingAlgorithms : public QMainWindow
         /*!
             write file
         */
-        //void on_btnWrite_clicked();
+        void on_btnWrite_clicked();
 
     private:
         template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();

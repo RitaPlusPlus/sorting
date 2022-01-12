@@ -9,7 +9,9 @@
 #include <QGroupBox>
 #include <QDebug>
 #include <QString>
+#include <QFile>
 #include <QFileDialog>
+#include <QTextStream>
 #include <iostream>
 #include <cstdlib> //RAND_MAX
 #include <string>
@@ -366,4 +368,31 @@ void SortingAlgorithms::on_btnRead_clicked()
     }
 } // on_btnRead_clicked
 
+
+//push button to write a text file
+void SortingAlgorithms::on_btnWrite_clicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this,
+            tr("Save As"), "",
+            tr("Text Documents (*.txt);;All Files (*)"));
+
+    if (fileName.isEmpty())
+    {
+        return;
+    }
+    else
+    {
+        QFile file(fileName);
+        if (!file.open(QFile::WriteOnly | QFile::Text))
+        {
+            QMessageBox::information(this, tr("Unable to open file"),
+                                     file.errorString());
+            return;
+        }
+        QTextStream out(&file);
+        QString text = ui->textBrowser_sortedSeq->toPlainText();
+        out << text;
+        file.close();
+    }
+} // on_btnWrite_clicked
 
