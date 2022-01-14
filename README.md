@@ -18,6 +18,7 @@ Using C++ programming language and Qt framework implement a software project tha
     - find a plugin to draw graphs
     - max n = 1M
     - the graph is always the same
+    - when above is done we can think about putting a label where the current size is /OPTIONAL/
 
 The program must have the following features:
 
