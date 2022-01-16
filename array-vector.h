@@ -456,6 +456,22 @@ void ArrayVector<T>::selectionSort()
 template <typename T>
 void ArrayVector<T>::insertionSort()
 {
+    /* On each step, the algorithm takes an element and checks if the previous one is smaller,
+            if the element is smaller than the previous one, it goes down and if the element is bigger it stays */
+            int i, j;
+            T key;
+                    for (i = 1; i < n; i++)
+                    {
+                        key = a[i];
+                        j = i - 1;
+
+                        while (j >= 0 && a[j] > key)
+                        {
+                            a[j + 1] = a[j];
+                            j = j - 1;
+                        }
+                        a[j + 1] = key;
+                    }
 } // insertionSort
 
 template <typename T>
