@@ -28,8 +28,14 @@ class SortingAlgorithms : public QMainWindow
         /*!
             Manual input parsing
         */
-        void manualInput();
+        bool manualInput();
 
+        //! UI
+        /*!
+            UI is public so array-vector.h can access it for visualisation.
+            Not a good practise if you have more than one UI windows.
+        */
+        Ui::SortingAlgorithms *ui;
 
     private slots:
 
@@ -93,9 +99,15 @@ class SortingAlgorithms : public QMainWindow
         */
         void on_btnWrite_clicked();
 
+        //! Click handler on Visualise clicked
+        /*!
+            visualise algorithms
+        */
+        void on_visualiseButton_clicked();
+
     private:
         template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();
-        Ui::SortingAlgorithms *ui;
+        template <typename T> typename ArrayVector<T>::SORTING_ALGO_VISUAL getSortAlgoVisual();
 
         int min;
         int max;

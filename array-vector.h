@@ -5,7 +5,10 @@
 #include <string>
 #include <algorithm>
 #include <cstdlib>
+#include <qtimer.h>
+#include <qeventloop.h>
 #include "QString"
+#include "ui_sortingalgorithms.h"
 
 using namespace std;
 
@@ -22,6 +25,12 @@ class ArrayVector
             SELECTION_SORT, INSERTION_SORT, BUBBLE_SORT, MERGE_SORT, QUICK_SORT, NONE
         };
     public:
+        enum SORTING_ALGO_VISUAL{
+            SELECTION_SORT_VISUAL, INSERTION_SORT_VISUAL, BUBBLE_SORT_VISUAL, MERGE_SORT_VISUAL, QUICK_SORT_VISUAL, NONE_VISUAL
+        };
+public:
+    public:
+
         //! Default Constructor
         /*!
             Constructs the default empty object
@@ -120,6 +129,13 @@ class ArrayVector
         */
         void sort(SORTING_ALGO algo); // sort
 
+        //! SortVisual
+        /*!
+            Sort with given algorithm for vusualisation
+            \param algo    algorithm
+        */
+        void sortVisual(SORTING_ALGO_VISUAL algo, Ui::SortingAlgorithms *ui); // sortVisual
+
         //! Clear vector
         /*!
             Empties the vector
@@ -191,6 +207,70 @@ class ArrayVector
         */
         void quickSort(int low, int high);
 
+        //! Selection sort for visualisation
+        /*!
+            Selection sort for visualisation
+        */
+        void selectionSortVisual(Ui::SortingAlgorithms *ui);
+
+        //! Insertion sort for visualisation
+        /*!
+            Insertion sort for visualisation
+        */
+        void insertionSortVisual(Ui::SortingAlgorithms *ui);
+
+        //! Bubble sort for visualisation
+        /*!
+            Bubble sort for visualisation
+        */
+        void bubbleSortVisual(Ui::SortingAlgorithms *ui);
+
+        //! Merge sort for visualisation
+        /*!
+            Merge sort for visualisation
+        */
+        void mergeSortVisual(Ui::SortingAlgorithms *ui);
+
+        //! Merge sort recursive for visualisation
+        /*!
+            Merge sort recursive for visualisation
+            \param low     index on the left
+            \param mid     index on the middle
+            \param high    index on the right
+        */
+        void mergeVisual(int low, int mid, int high);
+
+        //! Merge sort recursive for visualisation
+        /*!
+            Merge sort recursive for visualisation
+            \param low     index on the left
+            \param high    index on the right
+        */
+        void mergeSortVisual(int low, int high, Ui::SortingAlgorithms *ui);
+
+        //! Quick sort for visualisation
+        /*!
+            Quick sort for visualisation
+        */
+        void quickSortVisual(Ui::SortingAlgorithms *ui);
+
+        //! Quick sort helper recursive for visualisation
+        /*!
+            Quick sort helper recursive for visualisation
+            \param low    index on the left
+            \param high    index on the right
+            \return partition
+        */
+        int partitionVisual(int low, int high, Ui::SortingAlgorithms *ui);
+
+        //! Quick sort helper recursive for visualisation
+        /*!
+            Quick sort helper recursive for visualisation
+            \param low    index on the left
+            \param high    index on the right
+        */
+        void quickSortVisual(int low, int high, Ui::SortingAlgorithms *ui);
+
         //! Transforms to string sequence
         /*!
             Transforms to string sequence
@@ -205,6 +285,20 @@ class ArrayVector
             \return     QString
         */
         QString join(char delimeter) const;
+
+        //! msleep
+        /*!
+            Delays the function
+        */
+        void msleep(int msec);
+
+        //! printVisual
+        /*!
+            print the visualisation of the algorithm
+        */
+        void printVisual(int msec, Ui::SortingAlgorithms *ui);
+
+
     private:
         int n; // number of elements
         int capacity; // capacity of the vector
@@ -222,6 +316,8 @@ class ArrayVector
         */
         void copy(const ArrayVector<T>& b);
         T* a;
+        QString sequence;
+        Ui::SortingAlgorithms *ui;
 };
 
 template <typename T>
@@ -418,8 +514,23 @@ void ArrayVector<T>::sort(SORTING_ALGO algo)
         case BUBBLE_SORT: bubbleSort(); break;
         case MERGE_SORT: mergeSort(); break;
         case QUICK_SORT: quickSort(); break;
+
     }
 } // sort
+
+template <typename T>
+void ArrayVector<T>::sortVisual(SORTING_ALGO_VISUAL algo, Ui::SortingAlgorithms *ui)
+{
+    switch(algo)
+    {
+        case SELECTION_SORT_VISUAL: selectionSortVisual(ui); break;
+        case INSERTION_SORT_VISUAL: insertionSortVisual(ui); break;
+        case BUBBLE_SORT_VISUAL: bubbleSortVisual(ui); break;
+        case MERGE_SORT_VISUAL: mergeSortVisual(ui); break;
+        case QUICK_SORT_VISUAL: quickSortVisual(ui); break;
+
+    }
+} // sortVisual
 
 template <typename T>
 void ArrayVector<T>::selectionSort()
@@ -427,14 +538,14 @@ void ArrayVector<T>::selectionSort()
     //On each step, the algorithm is selecting the smallest element in the sequence
     //and is placing it in the sorted sequence preamble.
 
-    int sub_index,min_pos,j;
+    int min_pos;
 
-    for (sub_index = 0; sub_index < n - 1; sub_index++)
+    for (int sub_index = 0; sub_index < n - 1; sub_index++)
     {
         T min = a[sub_index];
         min_pos = sub_index;
 
-        for (j = sub_index + 1; j < n; j++)
+        for (int j = sub_index + 1; j < n; j++)
         {
             if (min > a[j])
             {
@@ -457,21 +568,21 @@ template <typename T>
 void ArrayVector<T>::insertionSort()
 {
     /* On each step, the algorithm takes an element and checks if the previous one is smaller,
-            if the element is smaller than the previous one, it goes down and if the element is bigger it stays */
-            int i, j;
-            T key;
-                    for (i = 1; i < n; i++)
-                    {
-                        key = a[i];
-                        j = i - 1;
+        if the element is smaller than the previous one, it goes down and if the element is bigger it stays */
+    int i, j;
+    T key;
+    for (i = 1; i < n; i++)
+    {
+        key = a[i];
+        j = i - 1;
 
-                        while (j >= 0 && a[j] > key)
-                        {
-                            a[j + 1] = a[j];
-                            j = j - 1;
-                        }
-                        a[j + 1] = key;
-                    }
+        while (j >= 0 && a[j] > key)
+        {
+            a[j + 1] = a[j];
+            j = j - 1;
+        }
+        a[j + 1] = key;
+    }
 } // insertionSort
 
 template <typename T>
@@ -565,6 +676,7 @@ void ArrayVector<T>::mergeSort(int low, int high)
    //sort the first and the second half
     mergeSort(low, mid); // recursive call
     mergeSort(mid + 1, high); // recursive call
+
     merge(low, mid, high); //merge two sorted sequences
 } // mergeSort
 
@@ -613,5 +725,231 @@ void ArrayVector<T>::quickSort(int low, int high)
         quickSort(pi + 1, high);
     }
 } // quickSort
+
+template <typename T>
+void ArrayVector<T>::selectionSortVisual(Ui::SortingAlgorithms *ui)
+{
+    //On each step, the algorithm is selecting the smallest element in the sequence
+    //and is placing it in the sorted sequence preamble.
+
+    int sub_index,min_pos,j;
+
+    for (sub_index = 0; sub_index < n - 1; sub_index++)
+    {
+        T min = a[sub_index];
+        min_pos = sub_index;
+
+        for (j = sub_index + 1; j < n; j++)
+        {
+            if (min > a[j])
+            {
+                min = a[j];
+                min_pos = j;
+            }
+        }
+
+        if (min_pos != sub_index)
+        {
+            //place at start
+            T tmp = a[sub_index];
+            a[sub_index] = a[min_pos];
+            a[min_pos] = tmp;
+        }
+    printVisual(1000, ui);
+    }
+} // selectionSortVisual
+
+template <typename T>
+void ArrayVector<T>::insertionSortVisual(Ui::SortingAlgorithms *ui)
+{
+    /* On each step, the algorithm takes an element and checks if the previous one is smaller,
+        if the element is smaller than the previous one, it goes down and if the element is bigger it stays */
+    int i, j;
+    T key;
+    for (i = 1; i < n; i++)
+    {
+        key = a[i];
+        j = i - 1;
+
+        while (j >= 0 && a[j] > key)
+        {
+            a[j + 1] = a[j];
+            j = j - 1;
+        }
+        a[j + 1] = key;
+        printVisual(1000, ui);
+    }
+} // insertionSort
+
+template <typename T>
+void ArrayVector<T>::bubbleSortVisual(Ui::SortingAlgorithms *ui)
+{
+    int i, j;
+    bool swapped;
+    for (i = 0; i < n-1; i++)
+    {
+     swapped = false;
+     for (j = 0; j < n-i-1; j++)
+     {
+        if (a[j] > a[j+1])
+        {
+            T temp = a[j];
+            a[j] = a[j+1];
+            a[j+1] = temp;
+           swapped = true;
+           printVisual(1000, ui);
+        }
+     }
+     // If none were swapped, then it's already sorted
+     if (swapped == false)
+        break;
+    }
+} // bubbleSort
+
+template <typename T>
+void ArrayVector<T>::mergeSortVisual(Ui::SortingAlgorithms *ui)
+{
+    printVisual(0, ui);
+    mergeSortVisual(0, n - 1, ui); //(n-1) for last index
+} // mergeSortVisual
+
+template <typename T>
+void ArrayVector<T>::mergeVisual(int low, int mid, int high) //low = from and high = to
+{
+    int n = high - low + 1; //size of the range to be merged
+
+   //merge both halves into a temporary  tmp
+    T tmp[n];
+
+    int indx_1 = low; //index for first sequence
+    int indx_2 = mid + 1; //index for second sequence/ next element to consider in the second half
+    int indx_tmp = 0; // next open position in tmp, or in other words, index for merged sequence
+
+   //as long as neither i1 nor i2 past the end, move the smaller element into tmp
+    while (indx_1 <= mid && indx_2 <= high)
+    {
+        if (a[indx_1] < a[indx_2]) //the element from the first sequence is the minimal
+        {
+            tmp[indx_tmp] = a[indx_1];
+            indx_1++;
+        }
+        else
+        {
+            tmp[indx_tmp] = a[indx_2];
+            indx_2++;
+        }
+        indx_tmp++;
+    }
+   //note that only one of the two while loops below is executed
+
+   //copy any remaining entries of the first half
+    while (indx_1 <= mid)
+    {
+        tmp[indx_tmp++] = a[indx_1++];
+    }
+
+   //copy any remaining entries of the second half
+    while (indx_2 <= high)
+    {
+        tmp[indx_tmp++] = a[indx_2++];
+    }
+
+    indx_tmp = 0;
+   //copy back from the temporary tmp to original one
+    for (int i = low; i <= high; i++)
+    {
+        a[i] = tmp[indx_tmp++];
+    }
+} // mergeVisual
+
+template <typename T>
+void ArrayVector<T>::mergeSortVisual(int low, int high, Ui::SortingAlgorithms *ui)
+{
+    if (low == high)
+    {
+        return;
+    }
+    int mid = (low + high) / 2;
+   //sort the first and the second half
+    mergeSortVisual(low, mid, ui); // recursive call
+    mergeSortVisual(mid + 1, high, ui); // recursive call
+    mergeVisual(low, mid, high); //merge two sorted sequences
+    printVisual(1000, ui);
+} // mergeSortVisual
+
+template <typename T>
+void ArrayVector<T>::quickSortVisual(Ui::SortingAlgorithms *ui)
+{
+    printVisual(0, ui);
+    quickSortVisual(0, n - 1, ui);
+} // quickSortVisual
+
+template <typename T>
+int ArrayVector<T>::partitionVisual(int low, int high, Ui::SortingAlgorithms *ui)
+{
+    T pivot = a[high];
+    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+
+    for (int j = low; j <= high - 1; j++)
+    {
+        if (a[j] < pivot)
+        {
+            i++; // increment index of smaller element
+            // Swap
+            T temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+    }
+    // Swap
+    T temp = a[i + 1];
+    a[i + 1] = a[high];
+    a[high] = temp;
+
+    return (i + 1);
+} // partitionVisual
+
+template <typename T>
+void ArrayVector<T>::quickSortVisual(int low, int high, Ui::SortingAlgorithms *ui)
+{
+    if (low < high)
+    {
+        // pi is partitioning index, arr[p] is now at right place
+        int pi = partitionVisual(low, high, ui);
+
+        // Separately sort elements before
+        // partition and after partition
+        quickSortVisual(low, pi - 1, ui);
+        printVisual(1000, ui);
+        quickSortVisual(pi + 1, high, ui);
+        printVisual(1000, ui);
+    }
+} // quickSortVisual
+
+
+template <typename T>
+void ArrayVector<T>::msleep(int msec)
+{
+    QEventLoop loop;
+
+    // loop used to the delay the functions for the time given in printVisual()
+    QTimer::singleShot(msec, &loop, &QEventLoop::quit);
+
+    loop.exec();
+}// msleep
+
+template <typename T>
+void ArrayVector<T>::printVisual(int msec, Ui::SortingAlgorithms *ui)
+{
+    sequence = "";
+    // stores the vector to a QString sequence
+    for(int i=0; i < n; i++)
+        {
+           sequence += QString::number(a[i]) + " ";
+        }
+    // prints the sequence to the GUI
+    ui->textBrowser_sortedSeq->setText(sequence);
+    msleep(msec);
+}// printVisual
 
 #endif

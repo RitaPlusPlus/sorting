@@ -171,9 +171,72 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
 
 } // on_btnGenerate_clicked
 
+//If user has selected manual input radio button or reading text files
+bool SortingAlgorithms::manualInput()
+{
+    int_vector.clear();
+    double_vector.clear();
+    string_vector.clear();
+    //takes users input from manual input textbox
+    sequence = ui->textE_Minput->toPlainText();
+    bool ok;
+
+    //if type is INT
+   if(ui->rbInt->isChecked())
+    {
+        list = sequence.split(" ");
+
+        foreach(QString num, list)
+        {
+            int_vector.insert_back(num.toInt(&ok));
+            if(!ok)
+            {
+                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non-numeric value!"), QMessageBox::Cancel);
+                return false;
+            }
+        }
+    }
+    //else if type is DOUBLE
+    else if(ui->rbDouble->isChecked())
+    {
+        list = sequence.split(" ");
+
+        foreach(QString num, list)
+        {
+            double_vector.insert_back(num.toDouble(&ok));
+            if(!ok)
+            {
+                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non-numeric value!"), QMessageBox::Cancel);
+                return false;
+            }
+        }
+    }
+    //else if type is STRING
+    else if(ui->rbStr->isChecked())
+    {
+        list = sequence.split(" ");
+
+        foreach(QString num, list)
+        {
+            string_vector.insert_back(num.toStdString());
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have a variable type selected!"), QMessageBox::Cancel);
+    }
+
+    return true;
+} // manualInput
+
 //push button Clear All
 void SortingAlgorithms::on_btnClear_clicked()
 {
+    //clears the vectors
+    int_vector.clear();
+    double_vector.clear();
+    string_vector.clear();
+
     //sets the textEdit and the two textBrowsers values to null
     ui->textE_Minput->setText("");
     ui->textBrowser_randSeq->setText("");
@@ -246,9 +309,11 @@ typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgo() {
 //push button Sort
 void SortingAlgorithms::on_btnSort_clicked()
 {
-    if(ui->rbMinput->isChecked())
+    //if manual input button is selected and manual is false, returns the function
+    //but if manual input button is selected and its true it will use the manual input
+    if(ui->rbMinput->isChecked() && manualInput() == false)
     {
-        manualInput();
+        return;
     }
 
     auto start = high_resolution_clock::now();
@@ -284,62 +349,6 @@ void SortingAlgorithms::on_btnSort_clicked()
 
 } // on_btnSort_clicked
 
-//If user has selected manual input radio button or reading text files
-void SortingAlgorithms::manualInput()
-{
-    int_vector.clear();
-    double_vector.clear();
-    string_vector.clear();
-    //takes users input from manual input textbox
-    sequence = ui->textE_Minput->toPlainText();
-    bool ok;
-
-    //if type is INT
-   if(ui->rbInt->isChecked())
-    {
-        list = sequence.split(" ");
-
-        foreach(QString num, list)
-        {
-            int_vector.insert_back(num.toInt(&ok));
-            if(!ok)
-            {
-                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non-numeric value!"), QMessageBox::Cancel);
-                break;
-            }
-        }
-    }
-    //else if type is DOUBLE
-    else if(ui->rbDouble->isChecked())
-    {
-        list = sequence.split(" ");
-
-        foreach(QString num, list)
-        {
-            double_vector.insert_back(num.toDouble(&ok));
-            if(!ok)
-            {
-                QMessageBox::critical(this,tr("Missing"),tr("Input contains a non-numeric value!"), QMessageBox::Cancel);
-                break;
-            }
-        }
-    }
-    //else if type is STRING
-    else if(ui->rbStr->isChecked())
-    {
-        list = sequence.split(" ");
-
-        foreach(QString num, list)
-        {
-            string_vector.insert_back(num.toStdString());
-        }
-    }
-    else
-    {
-        QMessageBox::warning(this,tr("Missing"),tr("You don't have a variable type selected!"), QMessageBox::Cancel);
-    }
-} // manualInput
-
 //push button to read a text file
 void SortingAlgorithms::on_btnRead_clicked()
 {
@@ -368,7 +377,6 @@ void SortingAlgorithms::on_btnRead_clicked()
     }
 } // on_btnRead_clicked
 
-
 //push button to write a text file
 void SortingAlgorithms::on_btnWrite_clicked()
 {
@@ -396,3 +404,60 @@ void SortingAlgorithms::on_btnWrite_clicked()
     }
 } // on_btnWrite_clicked
 
+//Gets the sorting algorithm to visualise it
+template <typename T>
+typename ArrayVector<T>::SORTING_ALGO_VISUAL SortingAlgorithms::getSortAlgoVisual()
+{
+    if(ui->rbSelectionS->isChecked())
+    {
+        return ArrayVector<T>::SELECTION_SORT_VISUAL;
+    }
+    else if(ui->rbInsertionS->isChecked())
+    {
+        return ArrayVector<T>::INSERTION_SORT_VISUAL;
+    }
+    else if(ui->rbBubbleS->isChecked())
+    {
+        return ArrayVector<T>::BUBBLE_SORT_VISUAL;
+    }
+    else if(ui->rbQuickS->isChecked())
+    {
+        return ArrayVector<T>::QUICK_SORT_VISUAL;
+    }
+    else if(ui->rbMergeS->isChecked())
+    {
+        return ArrayVector<T>::MERGE_SORT_VISUAL;
+    }
+    else
+    {
+        QMessageBox::warning(this,tr("Missing"),tr("You don't have a sorting algorithm selected."), QMessageBox::Cancel);
+        return ArrayVector<T>::NONE_VISUAL;
+    }
+} // getSortAlgoVisual
+
+//Push button to visualise the algorithms
+void SortingAlgorithms::on_visualiseButton_clicked()
+{
+    //if manual input button is selected and manual is false, returns the function
+    //but if manual input button is selected and its true it will use the manual input
+    if(ui->rbMinput->isChecked() && manualInput() == false)
+    {
+        return;
+    }
+    //if type is INT
+    if(ui->rbInt->isChecked())
+    {
+      int_vector.sortVisual(getSortAlgoVisual<int>(), ui);
+      sequence = int_vector.toString();
+    }
+    //else if type is DOUBLE
+    else if(ui->rbDouble->isChecked())
+    {
+        double_vector.sortVisual(getSortAlgoVisual<double>(), ui);
+        sequence = double_vector.toString();
+    }
+    else
+    {
+        QMessageBox::warning(this,tr("Missing"),tr("For visualisation select INT or DOUBLE!"), QMessageBox::Cancel);
+    }
+}// on_visualiseButton_clicked
