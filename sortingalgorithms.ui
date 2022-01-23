@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>716</width>
-    <height>634</height>
+    <width>721</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -461,8 +461,8 @@ rgba(234, 248, 253,100);
   </connection>
  </connections>
  <buttongroups>
+  <buttongroup name="Rand_or_Input_RbGroup"/>
   <buttongroup name="Types_int_double_str_RbGroup"/>
   <buttongroup name="Sorting_algos_RbGroup"/>
-  <buttongroup name="Rand_or_Input_RbGroup"/>
  </buttongroups>
 </ui>
