@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "array-vector.h"
+#include "linechart.h"
 
 QT_BEGIN_NAMESPACE namespace Ui { class SortingAlgorithms; } QT_END_NAMESPACE
 
@@ -105,6 +106,8 @@ class SortingAlgorithms : public QMainWindow
         */
         void on_visualiseButton_clicked();
 
+        void on_Compare_clicked();
+
     private:
         template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();
         template <typename T> typename ArrayVector<T>::SORTING_ALGO_VISUAL getSortAlgoVisual();
@@ -118,6 +121,7 @@ class SortingAlgorithms : public QMainWindow
         ArrayVector<string> string_vector;
         QString sequence;
         QStringList list;
+        LineChart *lchart;
 
 };
 #endif // SORTINGALGORITHMS_H

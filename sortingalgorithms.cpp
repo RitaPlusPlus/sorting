@@ -1,5 +1,6 @@
 #include "sortingalgorithms.h"
 #include "ui_sortingalgorithms.h"
+#include "linechart.h"
 
 #include <QRadioButton>
 #include <QApplication>
@@ -461,3 +462,8 @@ void SortingAlgorithms::on_visualiseButton_clicked()
         QMessageBox::warning(this,tr("Missing"),tr("For visualisation select INT or DOUBLE!"), QMessageBox::Cancel);
     }
 }// on_visualiseButton_clicked
+void SortingAlgorithms::on_Compare_clicked()
+{
+    lchart = new LineChart(this);
+    lchart->show();
+}
