@@ -381,10 +381,12 @@ void SortingAlgorithms::on_btnRead_clicked()
 //push button to write a text file
 void SortingAlgorithms::on_btnWrite_clicked()
 {
+    // open a window to name and save the file
     QString fileName = QFileDialog::getSaveFileName(this,
             tr("Save As"), "",
             tr("Text Documents (*.txt);;All Files (*)"));
 
+    // if no name is given and you try to save nothing happens
     if (fileName.isEmpty())
     {
         return;
@@ -392,16 +394,16 @@ void SortingAlgorithms::on_btnWrite_clicked()
     else
     {
         QFile file(fileName);
-        if (!file.open(QFile::WriteOnly | QFile::Text))
+        if (!file.open(QFile::WriteOnly | QFile::Text)) // if we cant save on the selected file an error message pops
         {
             QMessageBox::information(this, tr("Unable to open file"),
                                      file.errorString());
             return;
         }
-        QTextStream out(&file);
-        QString text = ui->textBrowser_sortedSeq->toPlainText();
-        out << text;
-        file.close();
+        QTextStream out(&file); // reference
+        QString text = ui->textBrowser_sortedSeq->toPlainText(); // sets the text as plain text
+        out << text; // writes the text
+        file.close(); // close the file after saving
     }
 } // on_btnWrite_clicked
 
@@ -462,8 +464,10 @@ void SortingAlgorithms::on_visualiseButton_clicked()
         QMessageBox::warning(this,tr("Missing"),tr("For visualisation select INT or DOUBLE!"), QMessageBox::Cancel);
     }
 }// on_visualiseButton_clicked
+
+// push button to display line chart
 void SortingAlgorithms::on_Compare_clicked()
 {
     lchart = new LineChart(this);
-    lchart->show();
-}
+    lchart->show(); // open the new window
+}// on_Compare_clicked
