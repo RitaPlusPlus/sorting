@@ -19,39 +19,34 @@ LineChart::LineChart(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LineChart)
 {
-
-
-        int size = 10000;
-        const int d = 10000;
-        int i = 0;
-        while(i++ < 10){
-            //generate random sequence with size size
-            // Insertion sort
-            auto startInsertion = high_resolution_clock::now();
-            insertionSort();
-            auto stopInsertion = high_resolution_clock::now();
-            auto duration1 = duration_cast<microseconds>(stopInsertion - startInsertion);
-            *series << QPointF(size, duration);
-
-
-
-
-            size += d;
-        }
-
     ui->setupUi(this);
 
     QLineSeries *series = new QLineSeries();
     series->setName("SelectionSort");
-    *series << QPointF(size, duration);
-    int startingX = 1;
-    int startingY = 2;
-    for(int i = 0; i < 10; i++)
-    {
-        startingX ++;
-        startingY = startingY * startingY;
-        *series << QPointF(startingX,startingY);
+
+    int size = 100;
+    const int d = 100;
+    int i = 0;
+    while(i++ < 10) {
+        // generate random sequence with size size
+        ArrayVector<int> vectorInsertionSort;
+        for (int i = 0; i < size; i++) {
+            int num = min + rand() % (max - min + 1);
+            vectorInsertionSort.insert_back(num);
+        }
+        // Insertion sort
+        auto startInsertion = high_resolution_clock::now();
+        vectorInsertionSort.insertionSort();
+        auto stopInsertion = high_resolution_clock::now();
+        auto durationInsertionSort = duration_cast<microseconds>(stopInsertion - startInsertion);
+        *series << QPointF(size, durationInsertionSort);
+
+        // other algorithms
+        size += d;
     }
+
+
+
     //*series << QPointF(0, 0) << QPointF(startingX, 200) << QPointF(100000, 500)
             //<< QPointF(500000, 800) << QPointF(700000, 2000);
 
