@@ -123,7 +123,8 @@ LineChart::LineChart(QWidget *parent) :
     // display the chart on the window
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing); // makes the lines in the chart more smooth visualy
-    chartView->setParent(ui->horizontalFrame); // where to display the chart
+    chartView->setParent(ui->horizontalFrame);// where to display the chart
+    //chartView->resizeEvent
 
     // customise the horizontal axis X
     QValueAxis *axisX = new QValueAxis;
@@ -152,6 +153,17 @@ LineChart::LineChart(QWidget *parent) :
     series2->attachAxis(axisY);
     series3->attachAxis(axisY);
     series4->attachAxis(axisY);
+
+    /*QDialog* dialog = new QDialog();
+    QVBoxLayout* layoutDialog = new QVBoxLayout(dialog);
+
+    QWidget* widget = new QWidget();
+    QVBoxLayout* layoutWidget = new QVBoxLayout(widget);
+
+    layoutDialog->addWidget(widget);
+    layoutWidget->addWidget(chartView);
+
+    dialog->exec();*/
 
 }
 
