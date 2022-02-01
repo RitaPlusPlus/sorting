@@ -325,7 +325,7 @@ ArrayVector<T>::ArrayVector()
 {
     n = 0;
     capacity = 0;
-    a = new T[NULL];
+    a = new T[0];
 } // ArrayVector
 
 template <typename T>
@@ -370,7 +370,7 @@ void ArrayVector<T>::clear()
     free();
     n = 0;
     capacity = 0;
-    a = new T[NULL];
+    a = new T[0];
 } // clear
 
 template <typename T>
@@ -514,6 +514,7 @@ void ArrayVector<T>::sort(SORTING_ALGO algo)
         case BUBBLE_SORT: bubbleSort(); break;
         case MERGE_SORT: mergeSort(); break;
         case QUICK_SORT: quickSort(); break;
+        case NONE: break;
 
     }
 } // sort
@@ -528,7 +529,7 @@ void ArrayVector<T>::sortVisual(SORTING_ALGO_VISUAL algo, Ui::SortingAlgorithms 
         case BUBBLE_SORT_VISUAL: bubbleSortVisual(ui); break;
         case MERGE_SORT_VISUAL: mergeSortVisual(ui); break;
         case QUICK_SORT_VISUAL: quickSortVisual(ui); break;
-
+        case NONE_VISUAL: break;
     }
 } // sortVisual
 

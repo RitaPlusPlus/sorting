@@ -63,6 +63,7 @@ rgba(234, 248, 253,100);
          <widget class="QLabel" name="timeTaken_Label">
           <property name="font">
            <font>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -121,11 +122,12 @@ rgba(234, 248, 253,100);
           </property>
           <property name="font">
            <font>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
           <property name="title">
-           <string>Sorthing algorithms</string>
+           <string>Sorting algorithms</string>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
@@ -208,6 +210,7 @@ rgba(234, 248, 253,100);
          <widget class="QGroupBox" name="groupBox">
           <property name="font">
            <font>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -248,6 +251,7 @@ rgba(234, 248, 253,100);
           <property name="font">
            <font>
             <pointsize>13</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -288,6 +292,7 @@ rgba(234, 248, 253,100);
           <property name="font">
            <font>
             <pointsize>13</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -382,6 +387,7 @@ rgba(234, 248, 253,100);
           <property name="font">
            <font>
             <pointsize>14</pointsize>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -394,6 +400,7 @@ rgba(234, 248, 253,100);
          <widget class="QGroupBox" name="groupBox_types">
           <property name="font">
            <font>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -461,8 +468,8 @@ rgba(234, 248, 253,100);
   </connection>
  </connections>
  <buttongroups>
+  <buttongroup name="Sorting_algos_RbGroup"/>
   <buttongroup name="Rand_or_Input_RbGroup"/>
   <buttongroup name="Types_int_double_str_RbGroup"/>
-  <buttongroup name="Sorting_algos_RbGroup"/>
  </buttongroups>
 </ui>
