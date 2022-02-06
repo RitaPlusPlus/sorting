@@ -43,6 +43,3 @@ Initials: Rado = rr Angel = at Ivon = in Tanyo = tk
 - **GUI** Display the measured time of each algorithm /at/
 - **GUI** Visually compare the complexity /tk/
 - Validate manual input and when reading files /tk/
-
-## Documentation
-- Divide 
