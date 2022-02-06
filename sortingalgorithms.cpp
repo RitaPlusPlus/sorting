@@ -21,7 +21,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLegend>
-#include <QtCharts/QBarCategoryAxis>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QCategoryAxis>
 #include <QValueAxis>
@@ -620,7 +619,7 @@ void SortingAlgorithms::on_Compare_clicked()
     QVBoxLayout* layoutWidget = new QVBoxLayout(widget);// add layout to the widget
 
     layoutDialog->addWidget(widget);// insert the widget in the dialog
-    layoutWidget->addWidget(chartView);// insert the cahrt in the widget
+    layoutWidget->addWidget(chartView);// insert the chart in the widget
 
     dialog->exec();
 }// on_Compare_clicked

@@ -106,6 +106,13 @@ class SortingAlgorithms : public QMainWindow
         */
         void on_visualiseButton_clicked();
 
+        //! Click handler on Compare complexity clicked
+        /*!
+            creates a line chart,
+            that compares complexity of the sorting algorithms
+
+        */
+
         void on_Compare_clicked();
 
     private:
