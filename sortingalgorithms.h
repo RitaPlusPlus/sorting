@@ -112,7 +112,6 @@ class SortingAlgorithms : public QMainWindow
             that compares complexity of the sorting algorithms
 
         */
-
         void on_Compare_clicked();
 
     private:
