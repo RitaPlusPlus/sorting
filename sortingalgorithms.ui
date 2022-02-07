@@ -135,7 +135,7 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
               </font>
              </property>
              <property name="text">
-              <string>Generated random sequence of elements:</string>
+              <string>Random generated sequence of elements:</string>
              </property>
             </widget>
            </item>
