@@ -384,7 +384,7 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
            </font>
           </property>
           <property name="title">
-           <string>Read/Write File</string>
+           <string>Read/Write Files</string>
           </property>
           <layout class="QGridLayout" name="gridLayout">
            <item row="2" column="0">
