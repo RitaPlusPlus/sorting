@@ -238,10 +238,6 @@ bool SortingAlgorithms::manualInput()
             string_vector.insert_back(num.toStdString());
         }
     }
-    else
-    {
-        QMessageBox::warning(this,tr("Missing"),tr("You don't have a variable type selected!"), QMessageBox::Cancel);
-    }
 
     return true;
 } // manualInput
@@ -369,29 +365,25 @@ void SortingAlgorithms::on_btnSort_clicked()
 //push button to read a text file
 void SortingAlgorithms::on_btnRead_clicked()
 {
-    if(ui->rbMinput->isChecked())
+    ui->rbMinput->setChecked(true);
+
+    QString file_name = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath());
+    QFile file(file_name);
+
+    if (!file.open(QFile::ReadOnly | QFile::Text))
     {
-        QString file_name = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath());
-        QFile file(file_name);
-
-        if (!file.open(QFile::ReadOnly | QFile::Text))
-        {
-            QMessageBox::warning(this, "title", "file not open");
-        }
-        else
-        {
-            QMessageBox::information(this, "..", file_name);
-        }
-        QTextStream in(&file);
-        QString text = in.readAll();
-        ui->textE_Minput->setPlainText(text);
-
-        file.close();
+        QMessageBox::warning(this, "title", "file not open");
     }
     else
     {
-        QMessageBox::warning(this,tr("Missing"),tr("Select Manual Input before opening a text file!"), QMessageBox::Ok);
+        QMessageBox::information(this, "..", file_name);
     }
+    QTextStream in(&file);
+    QString text = in.readAll();
+    ui->textE_Minput->setPlainText(text);
+
+    file.close();
+
 } // on_btnRead_clicked
 
 //push button to write a text file
@@ -480,7 +472,6 @@ void SortingAlgorithms::on_visualiseButton_clicked()
         QMessageBox::warning(this,tr("Missing"),tr("For visualisation select INT or DOUBLE!"), QMessageBox::Cancel);
     }
 }// on_visualiseButton_clicked
-
 
 
 

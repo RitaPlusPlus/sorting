@@ -43,7 +43,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
           <property name="font">
            <font>
             <pointsize>13</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -55,8 +54,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
             <widget class="QRadioButton" name="rbRandom">
              <property name="font">
               <font>
-               <family>Arial</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -130,9 +127,7 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
            <item>
             <widget class="QLabel" name="label_GenerateRandElemets">
              <property name="font">
-              <font>
-               <family>Arial</family>
-              </font>
+              <font/>
              </property>
              <property name="text">
               <string>Random generated sequence of elements:</string>
@@ -150,7 +145,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
           <property name="font">
            <font>
             <pointsize>14</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -164,7 +158,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
           <property name="font">
            <font>
             <pointsize>13</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -176,8 +169,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
             <widget class="QRadioButton" name="rbMinput">
              <property name="font">
               <font>
-               <family>Arial</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -211,7 +202,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
          <widget class="QGroupBox" name="groupBox_types">
           <property name="font">
            <font>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -270,26 +260,59 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
       </item>
       <item row="0" column="1">
        <layout class="QGridLayout" name="gridLayout_rightpart">
-        <item row="3" column="0">
-         <widget class="QPushButton" name="btnSort">
-          <property name="text">
-           <string>Sort</string>
-          </property>
-         </widget>
+        <item row="10" column="0">
+         <widget class="QTextBrowser" name="textBrowser_Visualisation"/>
         </item>
-        <item row="8" column="0">
+        <item row="9" column="0">
          <widget class="QPushButton" name="visualiseButton">
           <property name="text">
            <string>Visualise</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="Compare">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="title">
+           <string>Read/Write Files</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="2" column="0">
+            <widget class="QPushButton" name="btnWrite">
+             <property name="text">
+              <string>Write to a text file</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btnRead">
+             <property name="text">
+              <string>Read a text file</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="timeTaken_Label">
+          <property name="font">
+           <font>
+            <italic>true</italic>
+            <bold>false</bold>
+           </font>
+          </property>
           <property name="text">
-           <string>Compare complexity</string>
+           <string>Time taken in microseconds:</string>
           </property>
          </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QTextBrowser" name="textBrowser_sortedSeq"/>
         </item>
         <item row="1" column="0" alignment="Qt::AlignVCenter">
          <widget class="QGroupBox" name="groupBox_sortingalgos">
@@ -301,7 +324,6 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
           </property>
           <property name="font">
            <font>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -369,46 +391,24 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
           </layout>
          </widget>
         </item>
-        <item row="9" column="0">
-         <widget class="QTextBrowser" name="textBrowser_Visualisation"/>
-        </item>
-        <item row="5" column="0">
-         <widget class="QTextBrowser" name="textBrowser_sortedSeq"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="btnSort">
+          <property name="text">
+           <string>Sort</string>
           </property>
-          <property name="title">
-           <string>Read/Write Files</string>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="Compare">
+          <property name="text">
+           <string>Compare complexity</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="2" column="0">
-            <widget class="QPushButton" name="btnWrite">
-             <property name="text">
-              <string>Write to a text file</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="btnRead">
-             <property name="text">
-              <string>Read a text file</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_SortedSeqElem">
           <property name="font">
            <font>
-            <family>Arial</family>
             <pointsize>13</pointsize>
            </font>
           </property>
@@ -417,28 +417,11 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="timeTaken_Label">
-          <property name="font">
-           <font>
-            <family>Arial</family>
-            <weight>50</weight>
-            <italic>true</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Time taken in microseconds:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0" alignment="Qt::AlignHCenter">
+        <item row="7" column="0">
          <widget class="QLabel" name="label_Demonstrate">
           <property name="font">
            <font>
-            <family>Arial</family>
             <pointsize>13</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -474,8 +457,8 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
   </connection>
  </connections>
  <buttongroups>
-  <buttongroup name="Types_int_double_str_RbGroup"/>
   <buttongroup name="Sorting_algos_RbGroup"/>
+  <buttongroup name="Types_int_double_str_RbGroup"/>
   <buttongroup name="Rand_or_Input_RbGroup"/>
  </buttongroups>
 </ui>

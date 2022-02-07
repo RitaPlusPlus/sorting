@@ -238,7 +238,7 @@ public:
             \param mid     index on the middle
             \param high    index on the right
         */
-        void mergeVisual(int low, int mid, int high);
+        void mergeVisual(int low, int mid, int high, Ui::SortingAlgorithms *ui);
 
         //! Merge sort recursive for visualisation
         /*!
@@ -815,7 +815,7 @@ void ArrayVector<T>::mergeSortVisual(Ui::SortingAlgorithms *ui)
 } // mergeSortVisual
 
 template <typename T>
-void ArrayVector<T>::mergeVisual(int low, int mid, int high) //low = from and high = to
+void ArrayVector<T>::mergeVisual(int low, int mid, int high, Ui::SortingAlgorithms *ui) //low = from and high = to
 {
     int n = high - low + 1; //size of the range to be merged
 
@@ -840,6 +840,7 @@ void ArrayVector<T>::mergeVisual(int low, int mid, int high) //low = from and hi
             indx_2++;
         }
         indx_tmp++;
+        printVisual(500, ui);
     }
    //note that only one of the two while loops below is executed
 
@@ -847,12 +848,14 @@ void ArrayVector<T>::mergeVisual(int low, int mid, int high) //low = from and hi
     while (indx_1 <= mid)
     {
         tmp[indx_tmp++] = a[indx_1++];
+        printVisual(0, ui);
     }
 
    //copy any remaining entries of the second half
     while (indx_2 <= high)
     {
         tmp[indx_tmp++] = a[indx_2++];
+        printVisual(0, ui);
     }
 
     indx_tmp = 0;
@@ -860,6 +863,7 @@ void ArrayVector<T>::mergeVisual(int low, int mid, int high) //low = from and hi
     for (int i = low; i <= high; i++)
     {
         a[i] = tmp[indx_tmp++];
+        printVisual(0, ui);
     }
 } // mergeVisual
 
@@ -870,12 +874,12 @@ void ArrayVector<T>::mergeSortVisual(int low, int high, Ui::SortingAlgorithms *u
     {
         return;
     }
+    printVisual(1000, ui);
     int mid = (low + high) / 2;
    //sort the first and the second half
     mergeSortVisual(low, mid, ui); // recursive call
     mergeSortVisual(mid + 1, high, ui); // recursive call
-    mergeVisual(low, mid, high); //merge two sorted sequences
-    printVisual(1000, ui);
+    mergeVisual(low, mid, high, ui); //merge two sorted sequences
 } // mergeSortVisual
 
 template <typename T>
@@ -900,6 +904,7 @@ int ArrayVector<T>::partitionVisual(int low, int high, Ui::SortingAlgorithms *ui
             T temp = a[i];
             a[i] = a[j];
             a[j] = temp;
+            printVisual(1000, ui);
         }
     }
     // Swap
@@ -908,6 +913,7 @@ int ArrayVector<T>::partitionVisual(int low, int high, Ui::SortingAlgorithms *ui
     a[high] = temp;
 
     return (i + 1);
+    printVisual(0, ui);
 } // partitionVisual
 
 template <typename T>
@@ -921,9 +927,8 @@ void ArrayVector<T>::quickSortVisual(int low, int high, Ui::SortingAlgorithms *u
         // Separately sort elements before
         // partition and after partition
         quickSortVisual(low, pi - 1, ui);
-        printVisual(1000, ui);
         quickSortVisual(pi + 1, high, ui);
-        printVisual(1000, ui);
+        printVisual(0, ui);
     }
 } // quickSortVisual
 
@@ -949,7 +954,7 @@ void ArrayVector<T>::printVisual(int msec, Ui::SortingAlgorithms *ui)
            sequence += QString::number(a[i]) + " ";
         }
     // prints the sequence to the GUI
-    ui->textBrowser_sortedSeq->setText(sequence);
+    ui->textBrowser_Visualisation->setText(sequence);
     msleep(msec);
 }// printVisual
 
