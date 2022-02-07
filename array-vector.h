@@ -840,7 +840,6 @@ void ArrayVector<T>::mergeVisual(int low, int mid, int high, Ui::SortingAlgorith
             indx_2++;
         }
         indx_tmp++;
-        printVisual(500, ui);
     }
    //note that only one of the two while loops below is executed
 
@@ -848,14 +847,12 @@ void ArrayVector<T>::mergeVisual(int low, int mid, int high, Ui::SortingAlgorith
     while (indx_1 <= mid)
     {
         tmp[indx_tmp++] = a[indx_1++];
-        printVisual(0, ui);
     }
 
    //copy any remaining entries of the second half
     while (indx_2 <= high)
     {
         tmp[indx_tmp++] = a[indx_2++];
-        printVisual(0, ui);
     }
 
     indx_tmp = 0;
@@ -863,8 +860,8 @@ void ArrayVector<T>::mergeVisual(int low, int mid, int high, Ui::SortingAlgorith
     for (int i = low; i <= high; i++)
     {
         a[i] = tmp[indx_tmp++];
-        printVisual(0, ui);
     }
+    printVisual(1000, ui);
 } // mergeVisual
 
 template <typename T>
@@ -874,7 +871,7 @@ void ArrayVector<T>::mergeSortVisual(int low, int high, Ui::SortingAlgorithms *u
     {
         return;
     }
-    printVisual(1000, ui);
+    printVisual(0, ui);
     int mid = (low + high) / 2;
    //sort the first and the second half
     mergeSortVisual(low, mid, ui); // recursive call
@@ -950,9 +947,13 @@ void ArrayVector<T>::printVisual(int msec, Ui::SortingAlgorithms *ui)
     sequence = "";
     // stores the vector to a QString sequence
     for(int i=0; i < n; i++)
+    {
+        if(ui->textBrowser_Visualisation->toPlainText() == "")
         {
-           sequence += QString::number(a[i]) + " ";
+            return;
         }
+        sequence += QString::number(a[i]) + " ";
+    }
     // prints the sequence to the GUI
     ui->textBrowser_Visualisation->setText(sequence);
     msleep(msec);

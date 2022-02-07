@@ -194,6 +194,7 @@ bool SortingAlgorithms::manualInput()
     int_vector.clear();
     double_vector.clear();
     string_vector.clear();
+    sequence = "";
     //takes users input from manual input textbox
     sequence = ui->textE_Minput->toPlainText();
     bool ok;
@@ -249,11 +250,13 @@ void SortingAlgorithms::on_btnClear_clicked()
     int_vector.clear();
     double_vector.clear();
     string_vector.clear();
+    sequence = "";
 
     //sets the textEdit and the two textBrowsers values to null
     ui->textE_Minput->setText("");
     ui->textBrowser_randSeq->setText("");
     ui->textBrowser_sortedSeq->setText("");
+    ui->textBrowser_Visualisation->setText("");
 
     //sets the spinBoxes values to null
     ui->spinBox_Min->setValue(0);
@@ -366,6 +369,7 @@ void SortingAlgorithms::on_btnSort_clicked()
 void SortingAlgorithms::on_btnRead_clicked()
 {
     ui->rbMinput->setChecked(true);
+    on_rbMinput_clicked();
 
     QString file_name = QFileDialog::getOpenFileName(this, "Open a file", QDir::homePath());
     QFile file(file_name);
@@ -456,6 +460,7 @@ void SortingAlgorithms::on_visualiseButton_clicked()
         return;
     }
     //if type is INT
+    ui->textBrowser_Visualisation->setText(sequence);
     if(ui->rbInt->isChecked())
     {
       int_vector.sortVisual(getSortAlgoVisual<int>(), ui);
