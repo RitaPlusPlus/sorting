@@ -2,22 +2,23 @@
 #include "ui_sortingalgorithms.h"
 #include "linechart.h"
 
-#include <QRadioButton>
-#include <QApplication>
-#include <QCoreApplication>
-#include <QMessageBox>
-#include <QTranslator>
-#include <QGroupBox>
-#include <QDebug>
-#include <QString>
-#include <QFile>
-#include <QFileDialog>
-#include <QTextStream>
 #include <iostream>
 #include <cstdlib> //RAND_MAX
 #include <string>
-#include <iomanip>
+#include <QString>
+#include <QRadioButton>
+#include <QMessageBox>
+#include <QGroupBox>
+#include <QFile>
+#include <QFileDialog>
+#include <QTextStream>
 
+/*#include <QApplication>
+#include <QCoreApplication>
+#include <QTranslator>
+#include <QDebug>*/
+
+//--------for the chart----------
 #include <QtWidgets/QMainWindow>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLegend>
@@ -116,69 +117,75 @@ void SortingAlgorithms::on_rbRandom_clicked()
 //push button Generate works only when whant to generate a Random sequence (i.e. when we checked radio button Random)
 void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
 {
-    //set the variables (size,min and max) to have a connection to the spinBox-es from the user interface
-    min = ui->spinBox_Min->value();
-    max = ui->spinBox_Max->value();
-    size = ui->spinBox_Size->value();
-
-    if(min > max)
+    if(ui->rbInt->isChecked() or ui->rbDouble->isChecked() or ui->rbStr->isChecked() )
     {
-        QMessageBox::critical(this,"Title","Error: Min value should be smaller than Max value!\nChange the values where it's needed!",QMessageBox::Ok);
+        //set the variables (size,min and max) to have a connection to the spinBox-es from the user interface
+        min = ui->spinBox_Min->value();
+        max = ui->spinBox_Max->value();
+        size = ui->spinBox_Size->value();
+
+        if(min > max)
+        {
+            QMessageBox::critical(this,"Title","Error: Min value should be smaller than Max value!\nChange the values where it's needed!",QMessageBox::Ok);
+        }
+        else
+        {
+            //if type is INTEGER
+            if(ui->rbInt->isChecked())
+            {
+                sequence = "";
+                int_vector.clear();
+                int_vector.reserve(size);
+                for (int i = 0; i < size; i++)
+                {
+                    int num = min + rand() % (max - min + 1);
+                    int_vector.insert_back(num);
+                    sequence += QString::number(num) + " ";
+                }
+                ui->textBrowser_randSeq->setText(sequence);
+            }
+            //else if type is DOUBLE
+            else if(ui->rbDouble->isChecked())
+            {
+                sequence = "";
+                double_vector.clear();
+                double_vector.reserve(size);
+                for (int i = 0; i < size; i++)
+                {
+                    double num = min + rand() / (float)RAND_MAX * (max - min + 1);
+                    double_vector.insert_back(num);
+                    sequence += QString::number(num) + " ";
+                }
+                ui->textBrowser_randSeq->setText(sequence);
+            }
+            //else if type is STRING
+            else if(ui->rbStr->isChecked())
+            {
+                sequence = "";
+
+                const char alphanum[] =
+                     {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; // numbers,capital and small letters
+
+                string_vector.clear();
+                string_vector.reserve(size);
+                for (int i = 0; i < size; ++i)
+                {
+                    string temp = "";
+                    for (int i = 0; i < max; ++i)
+                    {
+                        temp += alphanum[rand() % (sizeof(alphanum) - 1)];
+                    }
+                    string_vector.insert_back(temp);
+                    sequence += QString::fromStdString(temp + " ");
+                }
+                ui->textBrowser_randSeq->setText(sequence);
+            }
+        }
     }
     else
     {
-        //if type is INTEGER
-        if(ui->rbInt->isChecked())
-        {
-            sequence = "";
-            int_vector.clear();
-            int_vector.reserve(size);
-            for (int i = 0; i < size; i++)
-            {
-                int num = min + rand() % (max - min + 1);
-                int_vector.insert_back(num);
-                sequence += QString::number(num) + " ";
-            }
-            ui->textBrowser_randSeq->setText(sequence);
-        }
-        //else if type is DOUBLE
-        else if(ui->rbDouble->isChecked())
-        {
-            sequence = "";
-            double_vector.clear();
-            double_vector.reserve(size);
-            for (int i = 0; i < size; i++)
-            {
-                double num = min + rand() / (float)RAND_MAX * (max - min + 1);
-                double_vector.insert_back(num);
-                sequence += QString::number(num) + " ";
-            }
-            ui->textBrowser_randSeq->setText(sequence);
-        }
-        //else if type is STRING
-        else if(ui->rbStr->isChecked())
-        {
-            sequence = "";
-
-            const char alphanum[] =
-                 {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; // numbers,capital and small letters
-
-            string_vector.clear();
-            string_vector.reserve(size);
-            for (int i = 0; i < size; ++i)
-            {
-                string temp = "";
-                for (int i = 0; i < max; ++i)
-                {
-                    temp += alphanum[rand() % (sizeof(alphanum) - 1)];
-                }
-                string_vector.insert_back(temp);
-                sequence += QString::fromStdString(temp + " ");
-            }
-            ui->textBrowser_randSeq->setText(sequence);
-        }
+        QMessageBox::critical(this,"Title","Error: you should first select a type!",QMessageBox::Ok);
     }
-
 } // on_btnGenerate_clicked
 
 //If user has selected manual input radio button or reading text files
@@ -474,6 +481,13 @@ void SortingAlgorithms::on_visualiseButton_clicked()
     }
 }// on_visualiseButton_clicked
 
+
+
+
+
+
+
+//------------------------------------------CHART-----------------------------------------------
 // push button to display line chart
 void SortingAlgorithms::on_Compare_clicked()
 {
