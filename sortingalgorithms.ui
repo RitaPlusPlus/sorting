@@ -390,7 +390,7 @@ background-color: qlineargradient(spread:reflect, x1:0.5, y1:0, x2:0, y2:0,stop:
            <item row="2" column="0">
             <widget class="QPushButton" name="btnWrite">
              <property name="text">
-              <string>Write to text file</string>
+              <string>Write to a text file</string>
              </property>
             </widget>
            </item>
