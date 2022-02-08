@@ -3,12 +3,10 @@
 #include "array-vector.h"
 #include "sortingalgorithms.h"
 
-#include <QtWidgets/QMainWindow>
-#include <QtCharts/QChartView>
-#include <QtCharts/QLegend>
-#include <QtCharts/QBarCategoryAxis>
-#include <QtCharts/QLineSeries>
-#include <QtCharts/QCategoryAxis>
+#include <QChart>
+#include <QChartView>
+#include <QLineSeries>
+#include <QFont>
 #include <QValueAxis>
 
 #include <chrono>
@@ -28,7 +26,7 @@ LineChart::LineChart(QWidget *parent) :
     QFont tfont;
     tfont.setBold(true); // bold or not
     tfont.setPixelSize(18); // font size
-    chart->setTitleFont(tfont);
+    chart->setTitleFont(tfont); // add the customization to the chart
 
     // create and set legend at the bottom of the chart
     chart->legend()->setVisible(true);
@@ -124,7 +122,7 @@ LineChart::LineChart(QWidget *parent) :
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing); // makes the lines in the chart more smooth visualy
     chartView->setParent(ui->horizontalFrame);// where to display the chart
-    //chartView->resizeEvent
+
 
     // customise the horizontal axis X
     QValueAxis *axisX = new QValueAxis;
@@ -154,22 +152,10 @@ LineChart::LineChart(QWidget *parent) :
     series3->attachAxis(axisY);
     series4->attachAxis(axisY);
 
-    /*QDialog* dialog = new QDialog();
-    QVBoxLayout* layoutDialog = new QVBoxLayout(dialog);
-
-    QWidget* widget = new QWidget();
-    QVBoxLayout* layoutWidget = new QVBoxLayout(widget);
-
-    layoutDialog->addWidget(widget);
-    layoutWidget->addWidget(chartView);
-
-    dialog->exec();*/
-
+    chartView->resize(650,500); // set chart size
 }
 
 LineChart::~LineChart()
 {
     delete ui;
 }
-
-
