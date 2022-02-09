@@ -12,6 +12,7 @@
 #include <chrono>
 
 using namespace std::chrono;
+
 LineChart::LineChart(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LineChart)
@@ -21,16 +22,6 @@ LineChart::LineChart(QWidget *parent) :
     // create chart and set title for it
     QChart *chart = new QChart();
     chart->setTitle("Execution time comparison");
-
-    // customise the chart title
-    QFont tfont;
-    tfont.setBold(true); // bold or not
-    tfont.setPixelSize(18); // font size
-    chart->setTitleFont(tfont); // add the customization to the chart
-
-    // create and set legend at the bottom of the chart
-    chart->legend()->setVisible(true);
-    chart->legend()->setAlignment(Qt::AlignBottom);
 
     // create different lines for the chart
     QLineSeries *series = new QLineSeries();
@@ -73,9 +64,9 @@ LineChart::LineChart(QWidget *parent) :
         }
 
         // Selection sort
-        auto startSelection = high_resolution_clock::now(); // start the timer
+        auto startSelection = high_resolution_clock::now(); // gets current time before the sorting
         vectorSelectionSort.selectionSort(); // uses selectionSort to sort the vector
-        auto stopSelection = high_resolution_clock::now(); // stops the timer
+        auto stopSelection = high_resolution_clock::now(); // gets current time after the sorting
         auto durationSelectionSort = duration_cast<microseconds>(stopSelection - startSelection); // calculates the duration
         *series << QPointF(size-d, durationSelectionSort.count()); // adds value to the lineseries
 
@@ -118,12 +109,6 @@ LineChart::LineChart(QWidget *parent) :
     chart->addSeries(series3);
     chart->addSeries(series4);
 
-    // display the chart on the window
-    QChartView *chartView = new QChartView(chart);
-    chartView->setRenderHint(QPainter::Antialiasing); // makes the lines in the chart more smooth visualy
-    chartView->setParent(ui->horizontalFrame);// where to display the chart
-
-
     // customise the horizontal axis X
     QValueAxis *axisX = new QValueAxis;
     axisX->setTitleText("Number of elements"); // gives name to the horizontal axis X
@@ -151,6 +136,21 @@ LineChart::LineChart(QWidget *parent) :
     series2->attachAxis(axisY);
     series3->attachAxis(axisY);
     series4->attachAxis(axisY);
+
+    // customise the chart title
+    QFont tfont;
+    tfont.setBold(true); // bold or not
+    tfont.setPixelSize(18); // font size
+    chart->setTitleFont(tfont); // add the customization to the chart
+
+    // set legend at the bottom of the chart
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignBottom);
+
+    // display the chart on the window
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing); // makes the lines in the chart more smooth visualy
+    chartView->setParent(ui->horizontalFrame);// where to display the chart
 
     chartView->resize(650,500); // set chart size
 }
