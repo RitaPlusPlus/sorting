@@ -262,6 +262,9 @@ void SortingAlgorithms::on_btnClear_clicked()
     ui->btnGenerate_randSeq->setEnabled(true);
     ui->textBrowser_randSeq->setEnabled(true);
 
+    // reset the time taken label
+    ui->timeTaken_Label->setText(QString::fromStdString("Time taken in microseconds: "));
+
     //set the different groups of Radio buttons for Types,Random/Manual input and Sorting Algorithms - to null
     if(ui->Types_int_double_str_RbGroup->checkedButton() != 0)
     {
