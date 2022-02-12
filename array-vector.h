@@ -538,32 +538,34 @@ void ArrayVector<T>::selectionSort()
 {
     //On each step, the algorithm is selecting the smallest element in the sequence
     //and is placing it in the sorted sequence preamble.
-
     int min_pos;
 
-    for (int sub_index = 0; sub_index < n - 1; sub_index++)
+    for (int step = 0; step < n - 1; step++)
     {
-        T min = a[sub_index];
-        min_pos = sub_index;
+        T minimum = a[step];
+        min_pos = step; //min_pos means minimum index
 
-        for (int j = sub_index + 1; j < n; j++)
+        for (int i = step + 1; i < n; i++)
         {
-            if (min > a[j])
+            // Note: To sort in descending order, change > to < in this line.
+            // Select the minimum element in each loop.
+            if (minimum > a[i])
             {
-                min = a[j];
-                min_pos = j;
+                minimum = a[i];
+                min_pos = i;
             }
         }
 
-        if (min_pos != sub_index)
+         // inside the if-statement we swap the position of two elements
+        // and put min at the correct position
+        if (min_pos != step)
         {
-            //place at start
-            T tmp = a[sub_index];
-            a[sub_index] = a[min_pos];
+            T tmp = a[step];
+            a[step] = a[min_pos];
             a[min_pos] = tmp;
         }
     }
-} // selectionSort
+}//selectionSort
 
 template <typename T>
 void ArrayVector<T>::insertionSort()
@@ -732,33 +734,35 @@ void ArrayVector<T>::selectionSortVisual(Ui::SortingAlgorithms *ui)
 {
     //On each step, the algorithm is selecting the smallest element in the sequence
     //and is placing it in the sorted sequence preamble.
+    int step,min_pos,i;
 
-    int sub_index,min_pos,j;
-
-    for (sub_index = 0; sub_index < n - 1; sub_index++)
+    for (step = 0; step < n - 1; step++)
     {
-        T min = a[sub_index];
-        min_pos = sub_index;
+        T minimum = a[step];
+        min_pos = step; //min_pos means minimum index
 
-        for (j = sub_index + 1; j < n; j++)
+        for (i = step + 1; i < n; i++)
         {
-            if (min > a[j])
+            // Note: To sort in descending order, change > to < in this line.
+            // Select the minimum element in each loop.
+            if (minimum > a[i])
             {
-                min = a[j];
-                min_pos = j;
+                minimum = a[i];
+                min_pos = i;
             }
         }
 
-        if (min_pos != sub_index)
+         // inside the if-statement we swap the position of two elements
+        // and put min at the correct position
+        if (min_pos != step)
         {
-            //place at start
-            T tmp = a[sub_index];
-            a[sub_index] = a[min_pos];
+            T tmp = a[step];
+            a[step] = a[min_pos];
             a[min_pos] = tmp;
         }
     printVisual(1000, ui);
     }
-} // selectionSortVisual
+}//selectionSort
 
 template <typename T>
 void ArrayVector<T>::insertionSortVisual(Ui::SortingAlgorithms *ui)
