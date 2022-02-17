@@ -24,10 +24,7 @@ class ArrayVector
         enum SORTING_ALGO{
             SELECTION_SORT, INSERTION_SORT, BUBBLE_SORT, MERGE_SORT, QUICK_SORT, NONE
         };
-    public:
-        enum SORTING_ALGO_VISUAL{
-            SELECTION_SORT_VISUAL, INSERTION_SORT_VISUAL, BUBBLE_SORT_VISUAL, MERGE_SORT_VISUAL, QUICK_SORT_VISUAL, NONE_VISUAL
-        };
+
 public:
     public:
 
@@ -134,7 +131,7 @@ public:
             Sort with given algorithm for vusualisation
             \param algo    algorithm
         */
-        void sortVisual(SORTING_ALGO_VISUAL algo, Ui::SortingAlgorithms *ui); // sortVisual
+        void sortVisual(SORTING_ALGO algo, Ui::SortingAlgorithms *ui); // sortVisual
 
         //! Clear vector
         /*!
@@ -520,16 +517,16 @@ void ArrayVector<T>::sort(SORTING_ALGO algo)
 } // sort
 
 template <typename T>
-void ArrayVector<T>::sortVisual(SORTING_ALGO_VISUAL algo, Ui::SortingAlgorithms *ui)
+void ArrayVector<T>::sortVisual(SORTING_ALGO algo, Ui::SortingAlgorithms *ui)
 {
     switch(algo)
     {
-        case SELECTION_SORT_VISUAL: selectionSortVisual(ui); break;
-        case INSERTION_SORT_VISUAL: insertionSortVisual(ui); break;
-        case BUBBLE_SORT_VISUAL: bubbleSortVisual(ui); break;
-        case MERGE_SORT_VISUAL: mergeSortVisual(ui); break;
-        case QUICK_SORT_VISUAL: quickSortVisual(ui); break;
-        case NONE_VISUAL: break;
+        case SELECTION_SORT: selectionSortVisual(ui); break;
+        case INSERTION_SORT: insertionSortVisual(ui); break;
+        case BUBBLE_SORT: bubbleSortVisual(ui); break;
+        case MERGE_SORT: mergeSortVisual(ui); break;
+        case QUICK_SORT: quickSortVisual(ui); break;
+        case NONE: break;
     }
 } // sortVisual
 
@@ -952,6 +949,7 @@ void ArrayVector<T>::printVisual(int msec, Ui::SortingAlgorithms *ui)
     // stores the vector to a QString sequence
     for(int i=0; i < n; i++)
     {
+        //if the clear button is pressed the function will stop
         if(ui->textBrowser_Visualisation->toPlainText() == "")
         {
             return;

@@ -170,7 +170,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
 } // on_btnGenerate_clicked
 
 //Stores and validates the sequnce from manual input, random genration and read files.
-bool SortingAlgorithms::store_and_validate_sequence(QString seq)
+bool SortingAlgorithms::parse_and_validate(QString seq)
 {
     int_vector.clear();
     double_vector.clear();
@@ -312,11 +312,11 @@ void SortingAlgorithms::on_btnSort_clicked()
 {
     //if manual input button is selected and manual is false, returns the function
     //but if manual input button is selected and its true it will use the manual input
-    if(ui->rbMinput->isChecked() && store_and_validate_sequence(ui->textE_Minput->toPlainText()) == false)
+    if(ui->rbMinput->isChecked() && parse_and_validate(ui->textE_Minput->toPlainText()) == false)
     {
         return;
     }
-    else if(ui->rbRandom->isChecked() && store_and_validate_sequence(ui->textBrowser_randSeq->toPlainText()) == false)
+    else if(ui->rbRandom->isChecked() && parse_and_validate(ui->textBrowser_randSeq->toPlainText()) == false)
     {
         return;
     }
@@ -366,7 +366,7 @@ void SortingAlgorithms::on_btnRead_clicked()
 
     if (!file.open(QFile::ReadOnly | QFile::Text))
     {
-        QMessageBox::warning(this, "title", "file not open");
+        QMessageBox::warning(this,tr("Missing"),tr("File Not Open!"));
     }
     else
     {
@@ -411,32 +411,32 @@ void SortingAlgorithms::on_btnWrite_clicked()
 
 //Gets the sorting algorithm to visualise it
 template <typename T>
-typename ArrayVector<T>::SORTING_ALGO_VISUAL SortingAlgorithms::getSortAlgoVisual()
+typename ArrayVector<T>::SORTING_ALGO SortingAlgorithms::getSortAlgoVisual()
 {
     if(ui->rbSelectionS->isChecked())
     {
-        return ArrayVector<T>::SELECTION_SORT_VISUAL;
+        return ArrayVector<T>::SELECTION_SORT;
     }
     else if(ui->rbInsertionS->isChecked())
     {
-        return ArrayVector<T>::INSERTION_SORT_VISUAL;
+        return ArrayVector<T>::INSERTION_SORT;
     }
     else if(ui->rbBubbleS->isChecked())
     {
-        return ArrayVector<T>::BUBBLE_SORT_VISUAL;
+        return ArrayVector<T>::BUBBLE_SORT;
     }
     else if(ui->rbQuickS->isChecked())
     {
-        return ArrayVector<T>::QUICK_SORT_VISUAL;
+        return ArrayVector<T>::QUICK_SORT;
     }
     else if(ui->rbMergeS->isChecked())
     {
-        return ArrayVector<T>::MERGE_SORT_VISUAL;
+        return ArrayVector<T>::MERGE_SORT;
     }
     else
     {
         QMessageBox::warning(this,tr("Missing"),tr("You don't have a sorting algorithm selected."), QMessageBox::Cancel);
-        return ArrayVector<T>::NONE_VISUAL;
+        return ArrayVector<T>::NONE;
     }
 } // getSortAlgoVisual
 
@@ -445,25 +445,26 @@ void SortingAlgorithms::on_visualiseButton_clicked()
 {
     //if manual input button is selected and manual is false, returns the function
     //but if manual input button is selected and its true it will use the manual input
-    if(ui->rbMinput->isChecked() && store_and_validate_sequence(ui->textE_Minput->toPlainText()) == false)
+    if(ui->rbMinput->isChecked() && parse_and_validate(ui->textE_Minput->toPlainText()) == false)
     {
         return;
     }
-    else if(ui->rbRandom->isChecked() && store_and_validate_sequence(ui->textBrowser_randSeq->toPlainText()) == false)
+    else if(ui->rbRandom->isChecked() && parse_and_validate(ui->textBrowser_randSeq->toPlainText()) == false)
     {
         return;
     }
 
     //if type is INT
-    ui->textBrowser_Visualisation->setText(sequence);
     if(ui->rbInt->isChecked())
     {
+      ui->textBrowser_Visualisation->setText(sequence);
       int_vector.sortVisual(getSortAlgoVisual<int>(), ui);
       sequence = int_vector.toString();
     }
     //else if type is DOUBLE
     else if(ui->rbDouble->isChecked())
     {
+        ui->textBrowser_Visualisation->setText(sequence);
         double_vector.sortVisual(getSortAlgoVisual<double>(), ui);
         sequence = double_vector.toString();
     }

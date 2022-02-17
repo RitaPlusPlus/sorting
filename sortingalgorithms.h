@@ -29,7 +29,7 @@ class SortingAlgorithms : public QMainWindow
         /*!
             Manual input parsing
         */
-        bool store_and_validate_sequence(QString seq);
+        bool parse_and_validate(QString seq);
 
         //! UI
         /*!
@@ -116,7 +116,7 @@ class SortingAlgorithms : public QMainWindow
 
     private:
         template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgo();
-        template <typename T> typename ArrayVector<T>::SORTING_ALGO_VISUAL getSortAlgoVisual();
+        template <typename T> typename ArrayVector<T>::SORTING_ALGO getSortAlgoVisual();
 
         int min;
         int max;
