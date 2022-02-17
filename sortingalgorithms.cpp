@@ -169,8 +169,8 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
     }
 } // on_btnGenerate_clicked
 
-//If user has selected manual input radio button or reading text files
-bool SortingAlgorithms::manualInput(QString seq)
+//Stores and validates the sequnce from manual input, random genration and read files.
+bool SortingAlgorithms::store_and_validate_sequence(QString seq)
 {
     int_vector.clear();
     double_vector.clear();
@@ -185,6 +185,7 @@ bool SortingAlgorithms::manualInput(QString seq)
 
         foreach(QString num, list)
         {
+            // store the sequence onto the vector
             int_vector.insert_back(num.toInt(&ok));
             if(!ok)
             {
@@ -200,6 +201,7 @@ bool SortingAlgorithms::manualInput(QString seq)
 
         foreach(QString num, list)
         {
+            // store the sequence onto the vector
             double_vector.insert_back(num.toDouble(&ok));
             if(!ok)
             {
@@ -215,12 +217,13 @@ bool SortingAlgorithms::manualInput(QString seq)
 
         foreach(QString num, list)
         {
+            // store the sequence onto the vector
             string_vector.insert_back(num.toStdString());
         }
     }
 
     return true;
-} // manualInput
+} // store_and_validate_sequence
 
 //push button Clear All
 void SortingAlgorithms::on_btnClear_clicked()
@@ -309,11 +312,11 @@ void SortingAlgorithms::on_btnSort_clicked()
 {
     //if manual input button is selected and manual is false, returns the function
     //but if manual input button is selected and its true it will use the manual input
-    if(ui->rbMinput->isChecked() && manualInput(ui->textE_Minput->toPlainText()) == false)
+    if(ui->rbMinput->isChecked() && store_and_validate_sequence(ui->textE_Minput->toPlainText()) == false)
     {
         return;
     }
-    else if(ui->rbRandom->isChecked() && manualInput(ui->textBrowser_randSeq->toPlainText()) == false)
+    else if(ui->rbRandom->isChecked() && store_and_validate_sequence(ui->textBrowser_randSeq->toPlainText()) == false)
     {
         return;
     }
@@ -442,11 +445,11 @@ void SortingAlgorithms::on_visualiseButton_clicked()
 {
     //if manual input button is selected and manual is false, returns the function
     //but if manual input button is selected and its true it will use the manual input
-    if(ui->rbMinput->isChecked() && manualInput(ui->textE_Minput->toPlainText()) == false)
+    if(ui->rbMinput->isChecked() && store_and_validate_sequence(ui->textE_Minput->toPlainText()) == false)
     {
         return;
     }
-    else if(ui->rbRandom->isChecked() && manualInput(ui->textBrowser_randSeq->toPlainText()) == false)
+    else if(ui->rbRandom->isChecked() && store_and_validate_sequence(ui->textBrowser_randSeq->toPlainText()) == false)
     {
         return;
     }
@@ -469,8 +472,6 @@ void SortingAlgorithms::on_visualiseButton_clicked()
         QMessageBox::warning(this,tr("Missing"),tr("For visualisation select INT or DOUBLE!"), QMessageBox::Cancel);
     }
 }// on_visualiseButton_clicked
-
-
 
 //------------------------------------------CHART-----------------------------------------------
 // push button to display line chart
