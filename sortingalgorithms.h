@@ -29,7 +29,7 @@ class SortingAlgorithms : public QMainWindow
         /*!
             Manual input parsing
         */
-        bool manualInput();
+        bool manualInput(QString seq);
 
         //! UI
         /*!

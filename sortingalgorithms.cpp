@@ -125,29 +125,21 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
             if(ui->rbInt->isChecked())
             {
                 sequence = "";
-                int_vector.clear();
-                int_vector.reserve(size);
                 for (int i = 0; i < size; i++)
                 {
                     int num = min + rand() % (max - min + 1);
-                    int_vector.insert_back(num);
                     sequence += QString::number(num) + " ";
                 }
-                ui->textBrowser_randSeq->setText(sequence);
             }
             //else if type is DOUBLE
             else if(ui->rbDouble->isChecked())
             {
                 sequence = "";
-                double_vector.clear();
-                double_vector.reserve(size);
                 for (int i = 0; i < size; i++)
                 {
                     double num = min + rand() / (float)RAND_MAX * (max - min + 1);
-                    double_vector.insert_back(num);
                     sequence += QString::number(num) + " ";
                 }
-                ui->textBrowser_randSeq->setText(sequence);
             }
             //else if type is STRING
             else if(ui->rbStr->isChecked())
@@ -157,8 +149,6 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
                 const char alphanum[] =
                      {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"}; // numbers,capital and small letters
 
-                string_vector.clear();
-                string_vector.reserve(size);
                 for (int i = 0; i < size; ++i)
                 {
                     string temp = "";
@@ -166,11 +156,11 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
                     {
                         temp += alphanum[rand() % (sizeof(alphanum) - 1)];
                     }
-                    string_vector.insert_back(temp);
                     sequence += QString::fromStdString(temp + " ");
                 }
-                ui->textBrowser_randSeq->setText(sequence);
             }
+
+            ui->textBrowser_randSeq->setText(sequence);
         }
     }
     else
@@ -180,14 +170,12 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
 } // on_btnGenerate_clicked
 
 //If user has selected manual input radio button or reading text files
-bool SortingAlgorithms::manualInput()
+bool SortingAlgorithms::manualInput(QString seq)
 {
     int_vector.clear();
     double_vector.clear();
     string_vector.clear();
-    sequence = "";
-    //takes users input from manual input textbox
-    sequence = ui->textE_Minput->toPlainText();
+    sequence = seq.trimmed();
     bool ok;
 
     //if type is INT
@@ -321,10 +309,15 @@ void SortingAlgorithms::on_btnSort_clicked()
 {
     //if manual input button is selected and manual is false, returns the function
     //but if manual input button is selected and its true it will use the manual input
-    if(ui->rbMinput->isChecked() && manualInput() == false)
+    if(ui->rbMinput->isChecked() && manualInput(ui->textE_Minput->toPlainText()) == false)
     {
         return;
     }
+    else if(ui->rbRandom->isChecked() && manualInput(ui->textBrowser_randSeq->toPlainText()) == false)
+    {
+        return;
+    }
+
 
     auto start = high_resolution_clock::now();
     auto stop = high_resolution_clock::now();
@@ -449,10 +442,15 @@ void SortingAlgorithms::on_visualiseButton_clicked()
 {
     //if manual input button is selected and manual is false, returns the function
     //but if manual input button is selected and its true it will use the manual input
-    if(ui->rbMinput->isChecked() && manualInput() == false)
+    if(ui->rbMinput->isChecked() && manualInput(ui->textE_Minput->toPlainText()) == false)
     {
         return;
     }
+    else if(ui->rbRandom->isChecked() && manualInput(ui->textBrowser_randSeq->toPlainText()) == false)
+    {
+        return;
+    }
+
     //if type is INT
     ui->textBrowser_Visualisation->setText(sequence);
     if(ui->rbInt->isChecked())
