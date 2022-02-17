@@ -117,7 +117,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
 
         if(min > max)
         {
-            QMessageBox::critical(this,"Title","Error: Min value should be smaller than Max value!\nChange the values where it's needed!",QMessageBox::Ok);
+            QMessageBox::critical(this,tr("Error"),tr("Error: Min value should be smaller than Max value!\nChange the values where it's needed!"),QMessageBox::Ok);
         }
         else
         {
@@ -175,7 +175,7 @@ void SortingAlgorithms::on_btnGenerate_randSeq_clicked()
     }
     else
     {
-        QMessageBox::critical(this,"Title","Error: you should first select a type!",QMessageBox::Ok);
+        QMessageBox::critical(this,tr("Error"),tr("Error: you should first select a type!"),QMessageBox::Ok);
     }
 } // on_btnGenerate_clicked
 
