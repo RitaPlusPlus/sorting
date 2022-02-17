@@ -738,6 +738,7 @@ void ArrayVector<T>::selectionSortVisual(Ui::SortingAlgorithms *ui)
 
     for (step = 0; step < n - 1; step++)
     {
+        printVisual(1000, ui);
         T minimum = a[step];
         min_pos = step; //min_pos means minimum index
 
@@ -760,7 +761,6 @@ void ArrayVector<T>::selectionSortVisual(Ui::SortingAlgorithms *ui)
             a[step] = a[min_pos];
             a[min_pos] = tmp;
         }
-    printVisual(1000, ui);
     }
 }//selectionSort
 
@@ -814,7 +814,7 @@ void ArrayVector<T>::bubbleSortVisual(Ui::SortingAlgorithms *ui)
 template <typename T>
 void ArrayVector<T>::mergeSortVisual(Ui::SortingAlgorithms *ui)
 {
-    printVisual(0, ui);
+    printVisual(500, ui);
     mergeSortVisual(0, n - 1, ui); //(n-1) for last index
 } // mergeSortVisual
 
@@ -886,7 +886,7 @@ void ArrayVector<T>::mergeSortVisual(int low, int high, Ui::SortingAlgorithms *u
 template <typename T>
 void ArrayVector<T>::quickSortVisual(Ui::SortingAlgorithms *ui)
 {
-    printVisual(0, ui);
+    printVisual(1000, ui);
     quickSortVisual(0, n - 1, ui);
 } // quickSortVisual
 
