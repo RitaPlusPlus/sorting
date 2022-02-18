@@ -690,13 +690,13 @@ template <typename T>
 int ArrayVector<T>::partition(int low, int high)
 {
     T pivot = a[high];
-    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+    int i = (low - 1);
 
     for (int j = low; j <= high - 1; j++)
     {
         if (a[j] < pivot)
         {
-            i++; // increment index of smaller element
+            i++;
             // Swap
             T temp = a[i];
             a[i] = a[j];
@@ -716,11 +716,9 @@ void ArrayVector<T>::quickSort(int low, int high)
 {
     if (low < high)
     {
-        // pi is partitioning index, arr[p] is now at right place
+        // pi is partitioning index
         int pi = partition(low, high);
 
-        // Separately sort elements before
-        // partition and after partition
         quickSort(low, pi - 1);
         quickSort(pi + 1, high);
     }
@@ -788,6 +786,7 @@ void ArrayVector<T>::bubbleSortVisual(Ui::SortingAlgorithms *ui)
 {
     int i, j;
     bool swapped;
+    // go through all adjacent elements
     for (i = 0; i < n-1; i++)
     {
      swapped = false;
@@ -922,8 +921,7 @@ void ArrayVector<T>::quickSortVisual(int low, int high, Ui::SortingAlgorithms *u
         // pi is partitioning index, arr[p] is now at right place
         int pi = partitionVisual(low, high, ui);
 
-        // Separately sort elements before
-        // partition and after partition
+        // Separately sort elements
         quickSortVisual(low, pi - 1, ui);
         quickSortVisual(pi + 1, high, ui);
         printVisual(0, ui);
