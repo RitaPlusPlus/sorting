@@ -35,7 +35,7 @@ Initials: Rado = rr Angel = at Ivon = in Tanyo = tk
   - Read /tk/
   - Write /at/
 - Implement sorting algorithms:
-  - selection sort + measure execution time /tk/
+  - selection sort + measure execution time /in/
   - insertion sort + measure execution time /at/
   - bubble sort + measure execution time /rr/
   - merge sort + measure execution time /in/
